@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="icon" href="logo.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Sales Statistics - Admin Dashboard</title>
+  <script>
+    (function () {
+      function checkAdminAuth() {
+        try {
+          var token = localStorage.getItem('token');
+          var user = JSON.parse(localStorage.getItem('user') || 'null');
+          if (!token || !user || user.role !== 'admin') {
+            window.location.replace('login.html');
+          }
+        } catch (_) {
+          window.location.replace('login.html');
+        }
+      }
+      checkAdminAuth();
+      window.addEventListener('pageshow', checkAdminAuth);
+    })();
+  </script>
+  <link rel="stylesheet" href="css/styles.css?v=26">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="/socket.io/socket.io.js"></script>
+</head>
+
+<body>
+  <header>
+    <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;">
+      <a href="admin.html" class="logo"><img src="logo.png" alt="Logo" class="logo-img"> Admin Dashboard</a>
+      <div class="canteen-badge-pill" id="canteen-badge-pill" title="Active Canteen Workspace" style="display: inline-flex; align-items: center; gap: 8px; background: #f1f5f9; border: 1px solid #cbd5e1; padding: 5px 12px; border-radius: 20px; font-size: 0.82rem; color: #334155;">
+        <span style="width: 8px; height: 8px; border-radius: 50%; background: #10b981; box-shadow: 0 0 6px rgba(16, 185, 129, 0.6);"></span>
+        <span id="current-canteen-name" style="font-weight: 700;">Loading Canteen...</span>
+        <span id="current-canteen-slug" style="opacity: 0.75; font-size: 0.75rem;"></span>
+      </div>
+    </div>
+    <nav id="admin-nav">
+      <a href="admin.html">Dashboard</a>
+      <a href="admin-bulk.html"><i class="fa-solid fa-boxes-stacked"></i> Bulk Orders</a>
+      <a href="admin-menu.html">Manage Menu</a>
+      <a href="admin-stats.html" class="active">Sales Statistics</a>
+      <a id="btn-storefront-link" href="menu.html" target="_blank" style="background: rgba(249, 115, 22, 0.1); border: 1px solid rgba(249, 115, 22, 0.3); color: #ea580c; padding: 6px 12px; border-radius: 8px; font-size: 0.85rem; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 6px;" title="Open Customer Menu Storefront"><i class="fa-solid fa-arrow-up-right-from-square"></i> Storefront</a>
+    </nav>
+  </header>
+
+  <main class="stats-dashboard-container">
+    <!-- Header with Title & Action Controls -->
+    <div class="stats-header">
+      <div class="stats-title-group">
+        <h2><i class="fa-solid fa-chart-line" style="color: var(--primary-color);"></i> Sales & Performance</h2>
+        <p class="stats-subtitle">Real-time revenue, item volume, and fulfillment analytics</p>
+      </div>
+      <div class="stats-header-actions">
+        <button id="btn-export-stats" class="stats-action-btn btn-export" title="Export CSV Report">
+          <i class="fa-solid fa-file-arrow-down"></i> Export CSV
+        </button>
+      </div>
+    </div>
+
+    <!-- Period Filter Bar -->
+    <div class="stats-period-bar">
+      <div class="stats-period-group">
+        <button class="stats-period-btn active" data-period="all">All Time</button>
+        <button class="stats-period-btn" data-period="today">Today</button>
+        <button class="stats-period-btn" data-period="month">This Month</button>
+      </div>
+      <div class="stats-period-indicator" id="stats-period-indicator">
+        <i class="fa-solid fa-chart-simple"></i> <span id="stats-period-text">All-Time Sales</span>
+      </div>
+    </div>
+
+    <!-- Executive KPI Summary Cards -->
+    <section class="stats-kpi-grid">
+      <!-- Total Revenue -->
+      <div class="stats-kpi-card revenue">
+        <div class="stats-kpi-top">
+          <span class="stats-kpi-label">Total Revenue</span>
+          <div class="stats-kpi-icon">
+            <i class="fa-solid fa-indian-rupee-sign"></i>
+          </div>
+        </div>
+        <div>
+          <div class="stats-kpi-value" id="kpi-revenue">₹0.00</div>
+          <div class="stats-kpi-sub" id="kpi-revenue-sub">0 orders delivered</div>
+        </div>
+      </div>
+
+      <!-- Delivered -->
+      <div class="stats-kpi-card delivered">
+        <div class="stats-kpi-top">
+          <span class="stats-kpi-label">Delivered</span>
+          <div class="stats-kpi-icon">
+            <i class="fa-solid fa-circle-check"></i>
+          </div>
+        </div>
+        <div>
+          <div class="stats-kpi-value" id="kpi-delivered">0</div>
+          <div class="stats-kpi-sub" id="kpi-delivered-sub">0 orders delivered</div>
+        </div>
+      </div>
+
+      <!-- Ordered -->
+      <div class="stats-kpi-card ordered">
+        <div class="stats-kpi-top">
+          <span class="stats-kpi-label">Ordered</span>
+          <div class="stats-kpi-icon">
+            <i class="fa-solid fa-bowl-food"></i>
+          </div>
+        </div>
+        <div>
+          <div class="stats-kpi-value" id="kpi-ordered">0</div>
+          <div class="stats-kpi-sub" id="kpi-ordered-sub">0 orders placed</div>
+        </div>
+      </div>
+
+      <!-- Fulfillment Rate -->
+      <div class="stats-kpi-card fulfillment">
+        <div class="stats-kpi-top">
+          <span class="stats-kpi-label">Fulfillment Rate</span>
+          <div class="stats-kpi-icon">
+            <i class="fa-solid fa-chart-pie"></i>
+          </div>
+        </div>
+        <div>
+          <div class="stats-kpi-value" id="kpi-rate">0%</div>
+          <div class="stats-kpi-sub" id="kpi-rate-sub">0 of 0 items</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Breakdown Panel -->
+    <section class="stats-panel">
+      <!-- Analytics Navigation Tabs -->
+      <div class="stats-section-tabs">
+        <button class="stats-tab-btn active" id="tab-items">
+          <i class="fa-solid fa-utensils"></i>
+          <span class="tab-label-full">Items Breakdown</span>
+          <span class="tab-label-short">Items</span>
+        </button>
+        <button class="stats-tab-btn" id="tab-daily">
+          <i class="fa-solid fa-calendar-day"></i>
+          <span class="tab-label-full">Daily Tracking</span>
+          <span class="tab-label-short">Daily</span>
+          <span class="stats-tab-badge" id="daily-count-badge">0</span>
+        </button>
+        <button class="stats-tab-btn" id="tab-monthly">
+          <i class="fa-solid fa-calendar-week"></i>
+          <span class="tab-label-full">Monthly Tracking</span>
+          <span class="tab-label-short">Monthly</span>
+          <span class="stats-tab-badge" id="monthly-count-badge">0</span>
+        </button>
+      </div>
+
+      <!-- Item Performance Breakdown Section -->
+      <div id="section-items">
+        <div class="stats-toolbar">
+          <div class="stats-toolbar-title">
+            <h3><i class="fa-solid fa-layer-group" style="color: var(--primary-color);"></i> Item Performance Breakdown</h3>
+            <span class="stats-count-badge" id="stats-count-badge">0 items</span>
+          </div>
+
+          <div class="stats-controls">
+            <div class="stats-search-box">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input type="text" id="stats-search-input" placeholder="Search menu item...">
+            </div>
+
+            <div class="stats-controls-row">
+              <select id="stats-sort-select" class="stats-select" title="Sort items">
+                <option value="revenue_desc">Sort: Highest Revenue</option>
+                <option value="ordered_desc">Sort: Most Ordered</option>
+                <option value="delivered_desc">Sort: Most Delivered</option>
+                <option value="rate_desc">Sort: Highest Fulfillment %</option>
+                <option value="name_asc">Sort: Name (A-Z)</option>
+              </select>
+
+              <div class="stats-view-toggle">
+                <button id="btn-view-cards" class="stats-view-btn active" title="Grid View">
+                  <i class="fa-solid fa-grip"></i>
+                </button>
+                <button id="btn-view-table" class="stats-view-btn" title="Table View">
+                  <i class="fa-solid fa-table-list"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dynamic View Container (Grid or Table) -->
+        <div id="stats-view-container">
+          <!-- Loaded dynamically by admin-stats.js -->
+          <div class="stats-empty-state">
+            <i class="fa-solid fa-spinner fa-spin"></i>
+            <h4>Loading sales data...</h4>
+            <p>Connecting to live order feed.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Daily Tracking Section -->
+      <div id="section-daily" style="display: none;">
+        <div class="stats-toolbar">
+          <div class="stats-toolbar-title">
+            <h3><i class="fa-solid fa-calendar-days" style="color: var(--primary-color);"></i> Daily Sales Records</h3>
+            <span class="stats-count-badge" id="stats-daily-badge">0 days</span>
+          </div>
+        </div>
+        <div id="daily-view-container">
+          <!-- Loaded dynamically by admin-stats.js -->
+        </div>
+      </div>
+
+      <!-- Monthly Tracking Section -->
+      <div id="section-monthly" style="display: none;">
+        <div class="stats-toolbar">
+          <div class="stats-toolbar-title">
+            <h3><i class="fa-solid fa-chart-column" style="color: var(--primary-color);"></i> Monthly Sales Summary</h3>
+            <span class="stats-count-badge" id="stats-monthly-badge">0 months</span>
+          </div>
+        </div>
+        <div id="monthly-view-container">
+          <!-- Loaded dynamically by admin-stats.js -->
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <nav class="bottom-nav">
+    <a href="admin.html">
+      <i class="fa-solid fa-gauge-high"></i>
+      <span>Orders</span>
+    </a>
+    <a href="admin-bulk.html">
+      <i class="fa-solid fa-boxes-stacked"></i>
+      <span>Bulk</span>
+    </a>
+    <a href="admin-menu.html">
+      <i class="fa-solid fa-utensils"></i>
+      <span>Menu</span>
+    </a>
+    <a href="admin-stats.html" class="active">
+      <i class="fa-solid fa-chart-line"></i>
+      <span>Stats</span>
+    </a>
+    <a href="#" onclick="try{localStorage.removeItem('token');localStorage.removeItem('user');Object.keys(localStorage).forEach(k=>{if(k.startsWith('canteen_cart'))localStorage.removeItem(k);});}catch(_){}window.location.replace('login.html');return false;">
+      <i class="fa-solid fa-right-from-bracket"></i>
+      <span>Logout</span>
+    </a>
+  </nav>
+
+  <script src="js/admin-stats.js?v=26"></script>
+</body>
+
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="icon" href="logo.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Manage Menu - Admin Dashboard</title>
+    <script>
+        (function () {
+            function checkAdminAuth() {
+                try {
+                    var token = localStorage.getItem('token');
+                    var user = JSON.parse(localStorage.getItem('user') || 'null');
+                    if (!token || !user || user.role !== 'admin') {
+                        window.location.replace('login.html');
+                    }
+                } catch (_) {
+                    window.location.replace('login.html');
+                }
+            }
+            checkAdminAuth();
+            window.addEventListener('pageshow', checkAdminAuth);
+        })();
+    </script>
+    <link rel="stylesheet" href="css/styles.css?v=2">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+
+<body>
+    <header>
+        <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;">
+            <a href="admin.html" class="logo"><img src="logo.png" alt="Logo" class="logo-img"> Admin Dashboard</a>
+            <div class="canteen-badge-pill" id="canteen-badge-pill" title="Active Canteen Workspace" style="display: inline-flex; align-items: center; gap: 8px; background: #f1f5f9; border: 1px solid #cbd5e1; padding: 5px 12px; border-radius: 20px; font-size: 0.82rem; color: #334155;">
+                <span style="width: 8px; height: 8px; border-radius: 50%; background: #10b981; box-shadow: 0 0 6px rgba(16, 185, 129, 0.6);"></span>
+                <span id="current-canteen-name" style="font-weight: 700;">Loading Canteen...</span>
+                <span id="current-canteen-slug" style="opacity: 0.75; font-size: 0.75rem;"></span>
+            </div>
+        </div>
+        <nav id="admin-nav">
+            <a href="admin.html">Dashboard</a>
+            <a href="admin-bulk.html"><i class="fa-solid fa-boxes-stacked"></i> Bulk Orders</a>
+            <a href="admin-menu.html" class="active">Manage Menu</a>
+            <a href="admin-stats.html">Sales Statistics</a>
+            <a id="btn-storefront-link" href="menu.html" target="_blank" style="background: rgba(249, 115, 22, 0.1); border: 1px solid rgba(249, 115, 22, 0.3); color: #ea580c; padding: 6px 12px; border-radius: 8px; font-size: 0.85rem; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 6px;" title="Open Customer Menu Storefront"><i class="fa-solid fa-arrow-up-right-from-square"></i> Storefront</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+            <h2><i class="fa-solid fa-utensils" style="color: var(--primary-color);"></i> Menu Management</h2>
+        </div>
+
+        <div class="admin-menu-layout">
+            <aside class="admin-add-item-aside">
+                <div class="glass-panel" style="padding: 1.5rem;">
+                    <h3
+                        style="margin-bottom: 1.5rem; border-bottom: 2px solid var(--text-main); padding-bottom: 0.5rem;">
+                        <i class="fa-solid fa-plus-circle" style="color: var(--primary-color);"></i> Add New Item</h3>
+                    <form id="add-item-form">
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="text" id="new-item-name" required placeholder="Item name">
+                        </div>
+                        <div class="form-group">
+                            <label>Image URL</label>
+                            <input type="url" id="new-item-image" required placeholder="https://example.com/image.jpg">
+                        </div>
+                        <div style="display: flex; gap: 1rem;">
+                            <div class="form-group" style="flex: 1;">
+                                <label>Price (₹)</label>
+                                <input type="number" id="new-item-price" required placeholder="Price">
+                            </div>
+                            <div class="form-group" style="flex: 1;">
+                                <label>Stock</label>
+                                <input type="number" id="new-item-stock" required min="0" value="0">
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 1rem;">
+                            <div style="flex: 1;">
+                                <label for="new-item-avail">Available</label>
+                                <select id="new-item-avail"
+                                    style="width: 100%; padding: 0.75rem; border: 2px solid var(--text-main); border-radius: var(--border-radius); font-family: inherit;">
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Add to Menu</button>
+                    </form>
+                </div>
+            </aside>
+
+            <main class="admin-menu-main">
+                <div class="glass-panel" style="padding: 1.5rem;">
+                    <h3
+                        style="margin-bottom: 1.5rem; border-bottom: 2px solid var(--text-main); padding-bottom: 0.5rem;">
+                        <i class="fa-solid fa-list" style="color: var(--primary-color);"></i> All Menu Items</h3>
+                    <div id="admin-menu-list">
+                        <!-- Items injected by JS -->
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <nav class="bottom-nav">
+        <a href="admin.html">
+            <i class="fa-solid fa-gauge-high"></i>
+            <span>Orders</span>
+        </a>
+        <a href="admin-bulk.html">
+            <i class="fa-solid fa-boxes-stacked"></i>
+            <span>Bulk</span>
+        </a>
+        <a href="admin-menu.html" class="active">
+            <i class="fa-solid fa-utensils"></i>
+            <span>Menu</span>
+        </a>
+        <a href="admin-stats.html">
+            <i class="fa-solid fa-chart-line"></i>
+            <span>Stats</span>
+        </a>
+        <a href="#" onclick="try{localStorage.removeItem('token');localStorage.removeItem('user');Object.keys(localStorage).forEach(k=>{if(k.startsWith('canteen_cart'))localStorage.removeItem(k);});}catch(_){}window.location.replace('login.html');return false;">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            <span>Logout</span>
+        </a>
+    </nav>
+
+    <script src="js/admin-menu.js?v=8"></script>
+</body>
+
+</html>

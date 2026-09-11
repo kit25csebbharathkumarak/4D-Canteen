@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="icon" href="logo.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Admin Bulk Orders - SRI CUMIN SEEDS CATERING SERVICES</title>
+  <script>
+    (function () {
+      function checkAdminAuth() {
+        try {
+          var token = localStorage.getItem('token');
+          var user = JSON.parse(localStorage.getItem('user') || 'null');
+          if (!token || !user || user.role !== 'admin') {
+            window.location.replace('login.html');
+          }
+        } catch (_) {
+          window.location.replace('login.html');
+        }
+      }
+      checkAdminAuth();
+      window.addEventListener('pageshow', checkAdminAuth);
+    })();
+  </script>
+  <link rel="stylesheet" href="css/styles.css?v=6">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="/socket.io/socket.io.js"></script>
+</head>
+
+<body>
+  <header>
+    <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;">
+      <a href="admin.html" class="logo"><img src="logo.png" alt="Logo" class="logo-img"> Admin Dashboard</a>
+      <div class="canteen-badge-pill" id="canteen-badge-pill" title="Active Canteen Workspace" style="display: inline-flex; align-items: center; gap: 8px; background: #f1f5f9; border: 1px solid #cbd5e1; padding: 5px 12px; border-radius: 20px; font-size: 0.82rem; color: #334155;">
+        <span style="width: 8px; height: 8px; border-radius: 50%; background: #10b981; box-shadow: 0 0 6px rgba(16, 185, 129, 0.6);"></span>
+        <span id="current-canteen-name" style="font-weight: 700;">Loading Canteen...</span>
+        <span id="current-canteen-slug" style="opacity: 0.75; font-size: 0.75rem;"></span>
+      </div>
+    </div>
+    <nav id="admin-nav">
+      <a href="admin.html">Dashboard</a>
+      <a href="admin-bulk.html" class="active"><i class="fa-solid fa-boxes-stacked"></i> Bulk Orders <span id="pending-badge" style="display:none; background:var(--primary-color); color:#fff; font-size:0.75rem; padding:2px 6px; border-radius:10px; margin-left:4px;">0</span></a>
+      <a href="admin-menu.html">Manage Menu</a>
+      <a href="admin-stats.html">Sales Statistics</a>
+      <a id="btn-storefront-link" href="menu.html" target="_blank" style="background: rgba(249, 115, 22, 0.1); border: 1px solid rgba(249, 115, 22, 0.3); color: #ea580c; padding: 6px 12px; border-radius: 8px; font-size: 0.85rem; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 6px;" title="Open Customer Menu Storefront"><i class="fa-solid fa-arrow-up-right-from-square"></i> Storefront</a>
+    </nav>
+  </header>
+
+  <main class="container" style="max-width: 1200px; padding: 1.5rem 1rem 5rem 1rem;">
+    <!-- Title and Filters -->
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 2rem;">
+      <div>
+        <h2 style="font-size: 1.8rem; display: flex; align-items: center; gap: 0.6rem;">
+          <i class="fa-solid fa-boxes-stacked" style="color: var(--primary-color);"></i> Bulk & Catering Orders Management
+        </h2>
+        <p style="color: var(--text-muted); margin-top: 0.3rem;">
+          Review event requests, provide quotations, and manage large-scale food preparations.
+        </p>
+      </div>
+
+      <!-- Quick Filter Chips -->
+      <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+        <button class="filter-chip active btn btn-primary" onclick="setFilter('all', this)" style="border-radius: 20px; font-size: 0.85rem; padding: 0.4rem 1rem;">All</button>
+        <button class="filter-chip btn btn-secondary" onclick="setFilter('Pending Review', this)" style="border-radius: 20px; font-size: 0.85rem; padding: 0.4rem 1rem;">Pending Review</button>
+        <button class="filter-chip btn btn-secondary" onclick="setFilter('Approved', this)" style="border-radius: 20px; font-size: 0.85rem; padding: 0.4rem 1rem;">Approved</button>
+        <button class="filter-chip btn btn-secondary" onclick="setFilter('In Kitchen', this)" style="border-radius: 20px; font-size: 0.85rem; padding: 0.4rem 1rem;">In Kitchen</button>
+        <button class="filter-chip btn btn-secondary" onclick="setFilter('Delivered', this)" style="border-radius: 20px; font-size: 0.85rem; padding: 0.4rem 1rem;">Delivered</button>
+      </div>
+    </div>
+
+    <!-- Bulk Orders Board -->
+    <div id="admin-bulk-board" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 1.5rem;">
+      <div style="text-align: center; padding: 3rem; color: var(--text-muted); grid-column: 1 / -1;">
+        Loading bulk orders...
+      </div>
+    </div>
+  </main>
+
+  <!-- Edit Quotation & Status Modal -->
+  <div class="modal" id="admin-action-modal">
+    <div class="modal-content" style="max-width: 650px; text-align: left;">
+      <span class="close-btn" id="close-action-modal">&times;</span>
+      <h3 id="action-modal-title" style="color: var(--primary-color); margin-bottom: 0.3rem;">Manage Bulk Order</h3>
+      <p id="action-modal-order-id" style="font-family: monospace; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.2rem;"></p>
+
+      <form id="admin-update-form" style="display: flex; flex-direction: column; gap: 1.2rem;">
+        <input type="hidden" id="edit-order-id">
+
+        <div id="action-modal-summary" style="background: var(--bg-color); padding: 1rem; border-radius: 8px; font-size: 0.9rem; line-height: 1.6;">
+          <!-- Injected via JS -->
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div class="form-group">
+            <label style="font-weight: 600; display: block; margin-bottom: 0.4rem;">
+              <i class="fa-solid fa-list-check"></i> Order Status *
+            </label>
+            <select id="edit-status" style="width: 100%; padding: 0.75rem; border: 2px solid var(--text-main); border-radius: var(--border-radius); font-weight: 600; background: #fff;">
+              <option value="Pending Review">Pending Review</option>
+              <option value="Approved">Approved / Quoted</option>
+              <option value="In Kitchen">In Kitchen (Preparing)</option>
+              <option value="Ready">Ready for Pickup / Delivery</option>
+              <option value="Delivered">Delivered / Completed</option>
+              <option value="Cancelled">Cancelled</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label style="font-weight: 600; display: block; margin-bottom: 0.4rem;">
+              <i class="fa-solid fa-indian-rupee-sign"></i> Final Quoted Price (₹)
+            </label>
+            <input type="number" step="0.01" id="edit-final-price" placeholder="Leave empty for est. total"
+              style="width: 100%; padding: 0.75rem; border: 2px solid var(--text-main); border-radius: var(--border-radius); font-family: inherit; font-weight: 700;">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label style="font-weight: 600; display: block; margin-bottom: 0.4rem;">
+            <i class="fa-solid fa-comment-dots"></i> Note for Customer / Kitchen Instructions
+          </label>
+          <textarea id="edit-admin-notes" rows="3" placeholder="e.g. Quotation includes disposable cutlery. Delivery scheduled for 12:15 PM at Hall 2."
+            style="width: 100%; padding: 0.75rem; border: 2px solid var(--text-main); border-radius: var(--border-radius); font-family: inherit; resize: vertical;"></textarea>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 0.8rem; margin-top: 0.5rem;">
+          <button type="button" class="btn btn-secondary" onclick="document.getElementById('admin-action-modal').classList.remove('active')">Cancel</button>
+          <button type="submit" id="save-status-btn" class="btn btn-primary" style="padding: 0.75rem 2rem; font-weight: 700;">
+            <i class="fa-solid fa-check"></i> Save & Notify Customer
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <nav class="bottom-nav">
+    <a href="admin.html">
+      <i class="fa-solid fa-gauge-high"></i>
+      <span>Orders</span>
+    </a>
+    <a href="admin-bulk.html" class="active">
+      <i class="fa-solid fa-boxes-stacked"></i>
+      <span>Bulk</span>
+    </a>
+    <a href="admin-menu.html">
+      <i class="fa-solid fa-utensils"></i>
+      <span>Menu</span>
+    </a>
+    <a href="admin-stats.html">
+      <i class="fa-solid fa-chart-line"></i>
+      <span>Stats</span>
+    </a>
+    <a href="#" onclick="try{localStorage.removeItem('token');localStorage.removeItem('user');Object.keys(localStorage).forEach(k=>{if(k.startsWith('canteen_cart'))localStorage.removeItem(k);});}catch(_){}window.location.replace('login.html');return false;">
+      <i class="fa-solid fa-right-from-bracket"></i>
+      <span>Logout</span>
+    </a>
+  </nav>
+
+  <script src="js/admin-bulk.js?v=8"></script>
+</body>
+
+</html>

@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <link rel="icon" href="logo.png">
+  <title>Contact Us - SRI CUMIN SEEDS CATERING SERVICES</title>
+  <meta name="description"
+    content="Contact SRI CUMIN SEEDS CATERING SERVICES at Kalaignar Karunanidhi Institute of Technology (KIT) Coimbatore. Helpline, email, timings, and support.">
+  <link rel="stylesheet" href="css/styles.css?v=20">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <style>
+    .contact-container {
+      max-width: 960px;
+      margin: 2.5rem auto 4rem auto;
+      padding: 0 1rem;
+    }
+    .contact-card {
+      background: #ffffff;
+      border: 2px solid var(--text-main);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-md);
+      padding: 3rem 2.5rem;
+      line-height: 1.7;
+    }
+    .contact-header {
+      border-bottom: 2px solid #f0f0f0;
+      padding-bottom: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .contact-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.35rem 0.85rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      background: #fff0ed;
+      color: var(--primary-color);
+      margin-bottom: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .contact-header h1 {
+      font-size: 2rem;
+      color: var(--text-main);
+      margin-bottom: 0.5rem;
+    }
+    .contact-header p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+    .contact-channel-card {
+      background: #ffffff;
+      border: 2px solid #e0e0e0;
+      border-radius: 12px;
+      padding: 1.5rem;
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    .contact-channel-card:hover {
+      border-color: var(--primary-color);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+    }
+    .channel-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: #fff0ed;
+      color: var(--primary-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      margin-bottom: 0.3rem;
+    }
+    .channel-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+    .channel-link {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      text-decoration: none;
+      word-break: break-all;
+    }
+    .channel-desc {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+    .timings-section {
+      background: #fafafa;
+      border: 1.5px solid #e5e5e5;
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin: 2rem 0;
+    }
+    .timings-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    .timing-slots-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+    .timing-box {
+      background: #fff;
+      padding: 0.85rem 1rem;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+    }
+    .timing-box strong {
+      display: block;
+      color: var(--primary-color);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      margin-bottom: 0.2rem;
+    }
+    .timing-box span {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+    .feedback-form-box {
+      margin-top: 2.5rem;
+      padding-top: 2rem;
+      border-top: 2px solid #f0f0f0;
+    }
+    .feedback-form-box h2 {
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+      color: var(--text-main);
+    }
+    .form-group-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      margin-bottom: 1rem;
+    }
+    .form-field label {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+    .form-field input,
+    .form-field select,
+    .form-field textarea {
+      padding: 0.75rem 1rem;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      outline: none;
+      transition: var(--transition);
+    }
+    .form-field input:focus,
+    .form-field select:focus,
+    .form-field textarea:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(229, 57, 53, 0.15);
+    }
+    .quick-nav-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+      padding: 0.85rem;
+      background: #f8f9fa;
+      border-radius: 12px;
+      border: 1px solid #e9ecef;
+    }
+    .quick-nav-bar a {
+      text-decoration: none;
+      font-size: 0.85rem;
+      color: var(--text-main);
+      padding: 0.35rem 0.75rem;
+      background: #fff;
+      border-radius: 20px;
+      border: 1px solid #ddd;
+      font-weight: 500;
+      transition: var(--transition);
+    }
+    .quick-nav-bar a:hover,
+    .quick-nav-bar a.active {
+      background: var(--primary-color);
+      color: #fff;
+      border-color: var(--primary-color);
+    }
+    @media (max-width: 768px) {
+      .contact-card {
+        padding: 2rem 1.25rem;
+      }
+      .contact-header h1 {
+        font-size: 1.6rem;
+      }
+      .form-group-row {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <a href="index.html" class="logo">
+      <img src="logo.png" alt="Sri Cumin Seeds Logo" class="logo-img">
+      <span>SRI CUMIN SEEDS CATERING</span>
+    </a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="menu.html">Menu</a>
+      <a href="bulk-order.html">Bulk Catering</a>
+      <a href="login.html" class="btn btn-secondary" style="padding: 0.4rem 1rem; border-radius: 20px;">Login</a>
+    </nav>
+  </header>
+
+  <main class="contact-container">
+    <!-- Legal Tabs Navigation -->
+    <div class="quick-nav-bar">
+      <a href="terms.html"><i class="fa-solid fa-file-contract"></i> Terms &amp; Conditions</a>
+      <a href="privacy.html"><i class="fa-solid fa-shield-halved"></i> Privacy Policy</a>
+      <a href="refunds.html"><i class="fa-solid fa-rotate-left"></i> Cancellation &amp; Refunds</a>
+      <a href="contact.html" class="active"><i class="fa-solid fa-headset"></i> Contact Us</a>
+    </div>
+
+    <div class="contact-card">
+      <div class="contact-header">
+        <span class="contact-badge"><i class="fa-solid fa-headset"></i> We Are Here to Help</span>
+        <h1>Contact Us</h1>
+        <p>Have questions about your meal order, payment verification, catering booking, or food quality? Reach out to our campus canteen support team.</p>
+      </div>
+
+      <!-- Contact Channels Grid -->
+      <div class="contact-grid">
+        <!-- Channel 1: Email -->
+        <div class="contact-channel-card">
+          <div class="channel-icon">
+            <i class="fa-solid fa-envelope"></i>
+          </div>
+          <span class="channel-title">Email Support</span>
+          <a href="mailto:kitcbecanteen@gmail.com" class="channel-link">kitcbecanteen@gmail.com</a>
+          <p class="channel-desc">Send us your order ID, payment transaction reference, or general queries. We respond within 24 hours.</p>
+        </div>
+
+        <!-- Channel 2: Phone -->
+        <div class="contact-channel-card">
+          <div class="channel-icon">
+            <i class="fa-solid fa-phone"></i>
+          </div>
+          <span class="channel-title">Phone Helpline</span>
+          <a href="tel:+919843017724" class="channel-link">+91 9843017724</a>
+          <p class="channel-desc">Direct line to the canteen manager. Available Monday to Saturday during canteen operating hours.</p>
+        </div>
+
+        <!-- Channel 3: Bulk Catering -->
+        <div class="contact-channel-card">
+          <div class="channel-icon">
+            <i class="fa-solid fa-boxes-stacked"></i>
+          </div>
+          <span class="channel-title">Bulk &amp; Event Catering</span>
+          <a href="bulk-order.html" class="channel-link" style="font-size:0.95rem;">Request Bulk Quote &rarr;</a>
+          <p class="channel-desc">Organizing a college symposium, workshop, sports meet, or club event? Book catering easily online.</p>
+        </div>
+      </div>
+
+      <!-- Campus Location -->
+      <div style="background: #fffaf7; border: 1.5px solid #ffe3dc; border-radius: 12px; padding: 1.5rem; margin: 1.5rem 0;">
+        <h3 style="font-size: 1.15rem; color: var(--primary-color); display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.6rem;">
+          <i class="fa-solid fa-location-dot"></i> Campus Canteen Location
+        </h3>
+        <p style="color: #333; line-height: 1.6; margin: 0;">
+          <strong>SRI CUMIN SEEDS CATERING SERVICES</strong><br>
+          Central Food Court &amp; Main Dining Complex<br>
+          Kalaignar Karunanidhi Institute of Technology (KIT)<br>
+          Kannampalayam Post, Coimbatore, Tamil Nadu – 641402, India.
+        </p>
+      </div>
+
+      <!-- Operating Hours -->
+      <div class="timings-section">
+        <div class="timings-title">
+          <i class="fa-solid fa-clock" style="color: var(--primary-color);"></i>
+          Daily Service Timings
+        </div>
+        <div class="timing-slots-grid">
+          <div class="timing-box">
+            <strong>Breakfast</strong>
+            <span>7:30 AM – 10:30 AM</span>
+          </div>
+          <div class="timing-box">
+            <strong>Lunch</strong>
+            <span>12:00 PM – 2:30 PM</span>
+          </div>
+          <div class="timing-box">
+            <strong>Evening Snacks &amp; Tea</strong>
+            <span>3:30 PM – 6:30 PM</span>
+          </div>
+          <div class="timing-box">
+            <strong>Working Schedule</strong>
+            <span>Monday – Saturday</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Message / Inquiry Form -->
+      <div class="feedback-form-box">
+        <h2><i class="fa-solid fa-paper-plane" style="color: var(--primary-color); margin-right: 0.4rem;"></i> Send Us a Message</h2>
+        <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;">Fill out this quick form and our support manager will get back to you promptly.</p>
+
+        <form id="contact-support-form" onsubmit="handleContactSubmit(event)">
+          <div class="form-group-row">
+            <div class="form-field">
+              <label for="contact-name">Your Full Name *</label>
+              <input type="text" id="contact-name" placeholder="e.g. Rahul Sharma" required>
+            </div>
+            <div class="form-field">
+              <label for="contact-email">Email Address *</label>
+              <input type="email" id="contact-email" placeholder="e.g. rahul@kitcbe.edu.in" required>
+            </div>
+          </div>
+
+          <div class="form-group-row">
+            <div class="form-field">
+              <label for="contact-phone">10-Digit Mobile Number</label>
+              <input type="tel" id="contact-phone" placeholder="e.g. 9876543210" pattern="[0-9]{10}">
+            </div>
+            <div class="form-field">
+              <label for="contact-category">Inquiry Category *</label>
+              <select id="contact-category" required>
+                <option value="Order & Payment Issue">Order &amp; Payment Verification</option>
+                <option value="Refund Status">Refund Inquiry / Duplicate Charge</option>
+                <option value="Bulk Catering Inquiry">Bulk Catering &amp; Events</option>
+                <option value="Food Quality & Feedback">Food Quality, Taste &amp; Hygiene</option>
+                <option value="Other">Other Query</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label for="contact-message">Your Message or Order Details *</label>
+            <textarea id="contact-message" rows="4" placeholder="Please describe your query or mention your Order ID..." required></textarea>
+          </div>
+
+          <div id="form-feedback-alert" style="display: none; padding: 0.85rem; border-radius: 8px; margin-bottom: 1rem; font-size: 0.9rem;"></div>
+
+          <button type="submit" id="contact-submit-btn" class="btn btn-primary" style="padding: 0.75rem 2rem; border-radius: 30px;">
+            <i class="fa-solid fa-paper-plane"></i> Send Inquiry
+          </button>
+        </form>
+      </div>
+
+      <!-- Bottom Nav Back Home -->
+      <div style="margin-top: 3rem; padding-top: 1.5rem; border-top: 2px solid #f0f0f0; display: flex; flex-wrap: wrap; gap: 1rem; justify-content: space-between; align-items: center;">
+        <a href="index.html" class="btn btn-primary" style="text-decoration: none;">
+          <i class="fa-solid fa-arrow-left"></i> Back to Home
+        </a>
+        <a href="menu.html" class="btn btn-secondary" style="text-decoration: none;">
+          <i class="fa-solid fa-utensils"></i> Browse Today's Menu
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Autofill logged-in user details if present
+    (function () {
+      try {
+        const user = JSON.parse(localStorage.getItem('user') || 'null');
+        if (user) {
+          const nameInput = document.getElementById('contact-name');
+          const emailInput = document.getElementById('contact-email');
+          const phoneInput = document.getElementById('contact-phone');
+          if (nameInput && user.name) nameInput.value = user.name;
+          if (emailInput && user.email) emailInput.value = user.email;
+          if (phoneInput && user.phone) phoneInput.value = user.phone;
+        }
+      } catch (_) {}
+    })();
+
+    function handleContactSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('contact-name').value.trim();
+      const email = document.getElementById('contact-email').value.trim();
+      const phone = document.getElementById('contact-phone').value.trim();
+      const category = document.getElementById('contact-category').value;
+      const message = document.getElementById('contact-message').value.trim();
+
+      const alertBox = document.getElementById('form-feedback-alert');
+      const submitBtn = document.getElementById('contact-submit-btn');
+
+      if (!name || !email || !message) {
+        alertBox.style.display = 'block';
+        alertBox.style.background = '#ffebee';
+        alertBox.style.color = '#c62828';
+        alertBox.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Please fill in all required fields.';
+        return;
+      }
+
+      // Generate mailto link for seamless direct submission
+      const subject = encodeURIComponent(`[${category}] Support Request from ${name}`);
+      const body = encodeURIComponent(
+        `Hello Canteen Support Team,\n\nName: ${name}\nEmail: ${email}\nPhone: ${phone || 'N/A'}\nCategory: ${category}\n\nMessage / Order Details:\n${message}\n\n--\nSent from KIT CBE Canteen Web Portal`
+      );
+
+      alertBox.style.display = 'block';
+      alertBox.style.background = '#e8f8f0';
+      alertBox.style.color = '#27ae60';
+      alertBox.innerHTML = '<i class="fa-solid fa-circle-check"></i> Thank you, ' + name + '! Your inquiry has been prepared. Opening your email app to send...';
+
+      setTimeout(() => {
+        window.location.href = `mailto:kitcbecanteen@gmail.com?subject=${subject}&body=${body}`;
+      }, 700);
+    }
+  </script>
+</body>
+
+</html>

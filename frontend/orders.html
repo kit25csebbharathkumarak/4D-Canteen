@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="icon" href="logo.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>My Orders - SRI CUMIN SEEDS CATERING SERVICES</title>
+  <script>
+    (function () {
+      function checkAuth() {
+        try {
+          var token = localStorage.getItem('token');
+          var user = JSON.parse(localStorage.getItem('user') || 'null');
+          if (!token || !user) {
+            window.location.replace('login.html');
+          }
+        } catch (_) {
+          window.location.replace('login.html');
+        }
+      }
+      checkAuth();
+      window.addEventListener('pageshow', checkAuth);
+    })();
+  </script>
+  <link rel="stylesheet" href="css/styles.css?v=12">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+
+<body>
+  <header>
+    <a href="index.html" class="logo"><img src="logo.png" alt="Logo" class="logo-img"> SRI CUMIN SEEDS CATERING
+      SERVICES</a>
+    <nav>
+      <a href="menu.html">Menu</a>
+      <a href="orders.html" class="active">My Orders</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h2 style="margin-bottom: 1rem;">My Order History</h2>
+    <p style="color: var(--text-muted); margin-bottom: 2rem;">Track your recent orders here. Click "View QR Code" to
+      show your order code at the counter.</p>
+
+    <div class="orders-board" id="user-orders-board">
+      <!-- Injected by JS -->
+    </div>
+  </main>
+
+  <!-- QR Code Modal -->
+  <div class="modal" id="qr-modal">
+    <div class="modal-content">
+      <span class="close-btn" id="close-modal">&times;</span>
+      <h3>Your Order QR</h3>
+      <p>Show this to the admin to collect your food.</p>
+      <div id="qrcode"></div>
+      <p style="font-family: monospace; font-weight: bold; color: var(--primary-color)" id="order-id-display"></p>
+    </div>
+  </div>
+
+  <nav class="bottom-nav">
+    <a href="menu.html">
+      <i class="fa-solid fa-utensils"></i>
+      <span>Menu</span>
+    </a>
+    <a href="menu.html">
+      <i class="fa-solid fa-cart-shopping"></i>
+      <span>Cart</span>
+    </a>
+    <a href="orders.html" class="active">
+      <i class="fa-solid fa-receipt"></i>
+      <span>Orders</span>
+    </a>
+    <a href="#" onclick="try{localStorage.removeItem('token');localStorage.removeItem('user');Object.keys(localStorage).forEach(k=>{if(k.startsWith('canteen_cart'))localStorage.removeItem(k);});}catch(_){}window.location.replace('login.html');return false;">
+      <i class="fa-solid fa-right-from-bracket"></i>
+      <span>Logout</span>
+    </a>
+  </nav>
+
+  <script src="js/orders.js?v=14"></script>
+</body>
+
+</html>

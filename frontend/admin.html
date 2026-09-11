@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="icon" href="logo.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Admin Dashboard - SRI CUMIN SEEDS CATERING SERVICES</title>
+  <script>
+    (function () {
+      function checkAdminAuth() {
+        try {
+          var token = localStorage.getItem('token');
+          var user = JSON.parse(localStorage.getItem('user') || 'null');
+          if (!token || !user || user.role !== 'admin') {
+            window.location.replace('login.html');
+          }
+        } catch (_) {
+          window.location.replace('login.html');
+        }
+      }
+      checkAdminAuth();
+      window.addEventListener('pageshow', checkAdminAuth);
+    })();
+  </script>
+  <link rel="stylesheet" href="css/styles.css?v=12">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+</head>
+
+<body>
+  <header>
+    <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;">
+      <a href="admin.html" class="logo"><img src="logo.png" alt="Logo" class="logo-img"> Admin Dashboard</a>
+      <div class="canteen-badge-pill" id="canteen-badge-pill" title="Active Canteen Workspace">
+        <span class="canteen-status-dot"></span>
+        <span id="current-canteen-name" style="font-weight: 700;">Loading Canteen...</span>
+        <span id="current-canteen-slug" style="opacity: 0.75; font-size: 0.75rem;"></span>
+      </div>
+    </div>
+    <nav id="admin-nav">
+      <a href="admin.html" class="active">Dashboard</a>
+      <a href="admin-bulk.html"><i class="fa-solid fa-boxes-stacked"></i> Bulk Orders</a>
+      <a href="admin-menu.html">Manage Menu</a>
+      <a href="admin-stats.html">Sales Statistics</a>
+      <button id="btn-header-qr" class="nav-saas-btn" title="Download Dining Table QR Code"><i class="fa-solid fa-qrcode"></i> Table QR</button>
+      <button id="btn-header-settings" class="nav-saas-btn" title="Canteen Profile & Branding Settings"><i class="fa-solid fa-gear"></i> Settings</button>
+      <a id="btn-storefront-link" href="menu.html" target="_blank" class="nav-saas-btn storefront-btn" title="Open Customer Menu Storefront"><i class="fa-solid fa-arrow-up-right-from-square"></i> Storefront</a>
+    </nav>
+  </header>
+
+  <style>
+    .canteen-badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.82rem;
+      color: #334155;
+    }
+    .canteen-status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 6px rgba(16, 185, 129, 0.6);
+    }
+    .nav-saas-btn {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      color: #334155;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+    .nav-saas-btn:hover {
+      background: #e2e8f0;
+      color: #0f172a;
+    }
+    .nav-saas-btn.storefront-btn {
+      background: rgba(249, 115, 22, 0.1);
+      border-color: rgba(249, 115, 22, 0.3);
+      color: #ea580c;
+      text-decoration: none;
+    }
+    .nav-saas-btn.storefront-btn:hover {
+      background: rgba(249, 115, 22, 0.18);
+    }
+    /* SaaS Modal Styles */
+    .saas-modal-backdrop {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(4px);
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+    .saas-modal-card {
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+      width: 100%;
+      max-width: 520px;
+      overflow: hidden;
+      animation: modalFadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: scale(0.96) translateY(8px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    .saas-modal-header {
+      padding: 1.2rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #f1f5f9;
+      background: #ffffff;
+    }
+    .saas-modal-close {
+      background: transparent;
+      border: none;
+      font-size: 1.5rem;
+      color: #94a3b8;
+      cursor: pointer;
+      line-height: 1;
+      padding: 4px 8px;
+      border-radius: 6px;
+    }
+    .saas-modal-close:hover {
+      color: #0f172a;
+      background: #f1f5f9;
+    }
+  </style>
+
+  <div class="container admin-layout">
+    <aside class="scanner-section">
+      <div class="glass-panel" style="padding: 1.5rem;">
+        <h3><i class="fa-solid fa-qrcode"></i> Scan Order QR</h3>
+        <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem;">Scan the student's QR code to
+          verify and fulfill.</p>
+        <div id="reader"></div>
+      </div>
+
+      <!-- Quick Stats Card -->
+      <div class="glass-panel" style="padding: 1.5rem; margin-top: 2rem; border-left: 5px solid var(--primary-color);">
+        <h4 style="margin-bottom: 0.5rem;">Admin Quick Links</h4>
+        <div style="display: flex; align-items: center; justify-content: space-between; background: var(--bg-color); padding: 0.85rem 1rem; border-radius: 12px; border: 1px solid rgba(0,0,0,0.08); margin-top: 1rem;">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="font-weight: 600;"><i class="fa-solid fa-store"></i> Shop Status</span>
+            <span id="shop-status-badge" style="font-size: 0.72rem; font-weight: 700; padding: 2px 8px; border-radius: 20px; text-transform: uppercase; background: #d1fae5; color: #065f46; border: 1px solid #a7f3d0; letter-spacing: 0.5px; transition: all 0.3s ease;">OPEN</span>
+          </div>
+          <label class="switch" style="position: relative; display: inline-block; width: 52px; height: 28px; margin: 0;">
+            <input type="checkbox" id="shop-status-toggle" style="opacity: 0; width: 0; height: 0;" checked>
+            <span class="slider round"></span>
+          </label>
+        </div>
+        <style>
+          .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: #ef4444; /* Vibrant RED when CLOSED */
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 28px;
+            box-shadow: 0 2px 6px rgba(239, 68, 68, 0.35);
+          }
+          .slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 4px;
+            bottom: 4px;
+            background-color: #ffffff;
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 50%;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+          }
+          input:checked + .slider {
+            background-color: #10b981; /* Vibrant GREEN when OPEN */
+            box-shadow: 0 2px 8px rgba(16, 185, 129, 0.45);
+          }
+          input:focus + .slider {
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+          }
+          input:not(:checked):focus + .slider {
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2);
+          }
+          input:checked + .slider:before {
+            transform: translateX(24px);
+          }
+          .slider:hover {
+            filter: brightness(1.06);
+          }
+        </style>
+        <div style="display: flex; flex-direction: column; gap: 0.8rem; margin-top: 1rem;">
+          <button id="btn-aside-qr" class="btn btn-secondary" style="font-size: 0.9rem; padding: 0.6rem; display: flex; align-items: center; justify-content: center; gap: 8px;">
+            <i class="fa-solid fa-qrcode" style="color: var(--primary-color);"></i> Table QR Standee
+          </button>
+          <button id="btn-aside-settings" class="btn btn-secondary" style="font-size: 0.9rem; padding: 0.6rem; display: flex; align-items: center; justify-content: center; gap: 8px;">
+            <i class="fa-solid fa-sliders" style="color: var(--primary-color);"></i> Canteen Profile & UPI
+          </button>
+          <a href="admin-menu.html" class="btn btn-secondary" style="font-size: 0.9rem; padding: 0.5rem;"><i
+              class="fa-solid fa-plus"></i> Add New Items</a>
+          <a href="admin-stats.html" class="btn btn-secondary" style="font-size: 0.9rem; padding: 0.5rem;"><i
+              class="fa-solid fa-chart-simple"></i> View Sales Data</a>
+        </div>
+      </div>
+    </aside>
+
+    <main>
+      <div
+        style="display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 2rem;">
+        <h2>Live Orders</h2>
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+          <div class="search-box" style="position: relative; flex: 1; min-width: 250px;">
+            <input type="text" id="order-search" placeholder="Search Order ID..."
+              style="width: 100%; padding: 0.75rem 1rem; padding-left: 2.5rem; border: 2px solid var(--text-main); border-radius: 30px; font-family: inherit;">
+            <i class="fa-solid fa-magnifying-glass"
+              style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: var(--text-muted);"></i>
+          </div>
+          <button id="clear-delivered-btn" class="btn btn-danger">Clear Delivered</button>
+        </div>
+      </div>
+
+      <!-- Recently Scanned Highlight Modal -->
+      <div id="recently-scanned-container" class="scan-modal-backdrop" onclick="if(event.target === this) closeScannedModal()">
+        <div class="scan-modal-card">
+          <div class="scan-modal-header">
+            <div class="scan-header-badge">
+              <i class="fa-solid fa-qrcode"></i> Order Scanned
+            </div>
+            <button class="scan-close-btn" onclick="closeScannedModal()" title="Close">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+          </div>
+          <div id="scanned-order-details" class="scan-order-details-body"></div>
+          <div class="scan-modal-footer">
+            <button id="scan-dismiss-btn" class="scan-dismiss-btn" onclick="closeScannedModal()">
+              <span>Done</span>
+              <span id="scan-countdown" class="scan-countdown-tag">5s</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="orders-board" id="orders-board">
+        <!-- Live orders injected by JS -->
+      </div>
+    </main>
+  </div>
+
+  <!-- Table QR Standee Modal -->
+  <div id="canteen-qr-modal" class="saas-modal-backdrop" onclick="if(event.target === this) closeCanteenQrModal()">
+    <div class="saas-modal-card">
+      <div class="saas-modal-header">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <div style="width: 36px; height: 36px; background: rgba(239, 68, 68, 0.12); color: var(--primary-color); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem;">
+            <i class="fa-solid fa-qrcode"></i>
+          </div>
+          <div>
+            <h3 style="margin: 0; font-size: 1.15rem;">Table Ordering QR Standee</h3>
+            <p id="canteen-qr-subtitle" style="margin: 0; font-size: 0.8rem; color: var(--text-muted);">Self-ordering QR code for dining tables and counter</p>
+          </div>
+        </div>
+        <button class="saas-modal-close" onclick="closeCanteenQrModal()" title="Close">&times;</button>
+      </div>
+      <div class="saas-modal-body" style="text-align: center; padding: 1.5rem;">
+        <div id="canteen-qr-container" style="background: #ffffff; border: 2px dashed #cbd5e1; border-radius: 16px; padding: 1.5rem; display: inline-block; box-shadow: 0 4px 14px rgba(0,0,0,0.05); margin-bottom: 1.25rem;">
+          <h4 id="canteen-qr-title" style="margin-bottom: 0.25rem; font-size: 1.1rem; color: #1e293b;">Scan to Order</h4>
+          <p style="font-size: 0.78rem; color: #64748b; margin-bottom: 1rem;">Direct customer mobile menu & contactless UPI checkout</p>
+          <img id="canteen-qr-img" src="" alt="Table QR Code" style="width: 220px; height: 220px; border-radius: 8px; object-fit: contain;">
+          <div style="margin-top: 0.8rem; font-size: 0.75rem; font-weight: 700; color: #0284c7; letter-spacing: 0.5px;">SMARTCANTEEN CLOUD</div>
+        </div>
+        
+        <div style="text-align: left; margin-bottom: 1.25rem;">
+          <label style="font-size: 0.8rem; font-weight: 600; color: var(--text-muted); display: block; margin-bottom: 4px;">Direct Storefront URL</label>
+          <div style="display: flex; gap: 8px;">
+            <input type="text" id="canteen-qr-url-input" readonly style="flex: 1; padding: 0.5rem 0.75rem; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.85rem; background: #f8fafc;">
+            <button onclick="copyStorefrontUrl()" class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.85rem;"><i class="fa-regular fa-copy"></i> Copy</button>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+          <button onclick="downloadCanteenQr()" class="btn btn-primary" style="padding: 0.7rem 1.4rem; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 8px;">
+            <i class="fa-solid fa-download"></i> Download High-Res PNG
+          </button>
+          <button onclick="printCanteenStandee()" class="btn btn-secondary" style="padding: 0.7rem 1.4rem; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 8px;">
+            <i class="fa-solid fa-print"></i> Print Standee Flyer
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Canteen Settings & Profile Modal -->
+  <div id="canteen-settings-modal" class="saas-modal-backdrop" onclick="if(event.target === this) closeCanteenSettingsModal()">
+    <div class="saas-modal-card" style="max-width: 600px;">
+      <div class="saas-modal-header">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <div style="width: 36px; height: 36px; background: rgba(59, 130, 246, 0.12); color: #2563eb; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem;">
+            <i class="fa-solid fa-sliders"></i>
+          </div>
+          <div>
+            <h3 style="margin: 0; font-size: 1.15rem;">Canteen Settings & Branding</h3>
+            <p style="margin: 0; font-size: 0.8rem; color: var(--text-muted);">Manage your cafeteria profile, UPI ID, logo, and theme</p>
+          </div>
+        </div>
+        <button class="saas-modal-close" onclick="closeCanteenSettingsModal()" title="Close">&times;</button>
+      </div>
+      <form id="canteen-settings-form" onsubmit="saveCanteenSettings(event)">
+        <div class="saas-modal-body" style="padding: 1.5rem; max-height: 70vh; overflow-y: auto;">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+            <div class="form-group" style="grid-column: span 2;">
+              <label style="font-size: 0.85rem; font-weight: 600;">Canteen Name *</label>
+              <input type="text" id="setting-canteen-name" required placeholder="e.g. Sri Cumin Seeds Catering">
+            </div>
+            <div class="form-group" style="grid-column: span 2;">
+              <label style="font-size: 0.85rem; font-weight: 600;">Tagline</label>
+              <input type="text" id="setting-canteen-tagline" placeholder="e.g. Delicious meals, zero waiting in line">
+            </div>
+            <div class="form-group" style="grid-column: span 2;">
+              <label style="font-size: 0.85rem; font-weight: 600;">About / Description</label>
+              <textarea id="setting-canteen-desc" rows="2" placeholder="Brief cafeteria description"></textarea>
+            </div>
+            <div class="form-group">
+              <label style="font-size: 0.85rem; font-weight: 600;">Contact Phone *</label>
+              <input type="tel" id="setting-canteen-phone" required placeholder="e.g. 9876543210">
+            </div>
+            <div class="form-group">
+              <label style="font-size: 0.85rem; font-weight: 600;">Contact Email</label>
+              <input type="email" id="setting-canteen-email" placeholder="canteen@example.com">
+            </div>
+            <div class="form-group" style="grid-column: span 2;">
+              <label style="font-size: 0.85rem; font-weight: 600;">Campus / Physical Address</label>
+              <input type="text" id="setting-canteen-address" placeholder="e.g. Food Court Ground Floor, Academic Block">
+            </div>
+            <div class="form-group">
+              <label style="font-size: 0.85rem; font-weight: 600;">UPI ID for Direct Payments</label>
+              <input type="text" id="setting-canteen-upi-id" placeholder="e.g. canteen@okaxis">
+            </div>
+            <div class="form-group">
+              <label style="font-size: 0.85rem; font-weight: 600;">UPI Payee Name</label>
+              <input type="text" id="setting-canteen-upi-name" placeholder="e.g. Sri Cumin Seeds">
+            </div>
+            <div class="form-group">
+              <label style="font-size: 0.85rem; font-weight: 600;">Logo Image URL</label>
+              <input type="url" id="setting-canteen-logo" placeholder="https://example.com/logo.png">
+            </div>
+            <div class="form-group">
+              <label style="font-size: 0.85rem; font-weight: 600;">Brand Accent Color</label>
+              <div style="display: flex; gap: 8px; align-items: center;">
+                <input type="color" id="setting-canteen-theme" value="#e53935" style="width: 44px; height: 38px; padding: 2px; border: 1px solid #ccc; border-radius: 8px; cursor: pointer;">
+                <span id="theme-color-hex" style="font-size: 0.85rem; color: var(--text-muted);">#e53935</span>
+              </div>
+            </div>
+            <div class="form-group" style="grid-column: span 2;">
+              <label style="font-size: 0.85rem; font-weight: 600;">Banner Image URL</label>
+              <input type="url" id="setting-canteen-banner" placeholder="https://images.unsplash.com/photo-1555396273-367ea4eb4db5">
+            </div>
+          </div>
+          
+          <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 1rem; margin-top: 0.5rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <div>
+                <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; color: #64748b; font-weight: 700;">Subscription Tier</span>
+                <div id="canteen-plan-display" style="font-weight: 700; font-size: 0.95rem; color: #0f172a;">Growth Plan</div>
+              </div>
+              <div>
+                <span id="canteen-status-tag" style="background: #dcfce7; color: #15803d; padding: 3px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase;">ACTIVE</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="saas-modal-footer" style="padding: 1rem 1.5rem; background: #f8fafc; border-top: 1px solid #e2e8f0; display: flex; justify-content: flex-end; gap: 10px;">
+          <button type="button" class="btn btn-secondary" onclick="closeCanteenSettingsModal()">Cancel</button>
+          <button type="submit" id="save-settings-btn" class="btn btn-primary" style="padding: 0.6rem 1.5rem;">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <nav class="bottom-nav">
+    <a href="admin.html" class="active">
+      <i class="fa-solid fa-gauge-high"></i>
+      <span>Orders</span>
+    </a>
+    <a href="admin-bulk.html">
+      <i class="fa-solid fa-boxes-stacked"></i>
+      <span>Bulk</span>
+    </a>
+    <a href="admin-menu.html">
+      <i class="fa-solid fa-utensils"></i>
+      <span>Menu</span>
+    </a>
+    <a href="admin-stats.html">
+      <i class="fa-solid fa-chart-line"></i>
+      <span>Stats</span>
+    </a>
+    <a href="#" onclick="try{localStorage.removeItem('token');localStorage.removeItem('user');Object.keys(localStorage).forEach(k=>{if(k.startsWith('canteen_cart'))localStorage.removeItem(k);});}catch(_){}window.location.replace('login.html');return false;">
+      <i class="fa-solid fa-right-from-bracket"></i>
+      <span>Logout</span>
+    </a>
+  </nav>
+
+  <script src="js/admin.js?v=16"></script>
+</body>
+
+</html>

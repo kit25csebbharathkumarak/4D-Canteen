@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="logo.png">
+  <meta charset="UTF-8">
+  <title>Register - SRI CUMIN SEEDS CATERING SERVICES</title>
+  <link rel="icon" href="logo.png">
+  <link rel="stylesheet" href="css/styles.css?v=8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Firebase App & Auth SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-auth-compat.js"></script>
+</head>
+
+<body>
+  <div class="auth-container">
+    <div class="glass-panel auth-box">
+      <div style="text-align: center; margin-bottom: 1rem;">
+        <img src="logo.png" alt="Logo" style="max-height: 150px; width: auto; object-fit: contain;">
+      </div>
+      <h2 style="text-align: center; margin-bottom: 1.5rem;">Create Account</h2>
+      <form id="register-form">
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" id="name" required>
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="email" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <div style="position: relative; display: flex; align-items: center;">
+            <input type="password" id="password" required style="padding-right: 2.8rem; width: 100%;">
+            <button type="button" class="password-toggle-btn" data-target="password" onclick="togglePasswordVisibility('password', this)" style="position: absolute; right: 10px; background: none; border: none; cursor: pointer; color: var(--text-muted); font-size: 1.1rem; padding: 4px; display: flex; align-items: center; justify-content: center;" title="Show/Hide Password">
+              <i class="fa-regular fa-eye"></i>
+            </button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="phone"><i class="fa-solid fa-mobile-screen-button" style="color: var(--primary-color); margin-right: 4px;"></i> Mobile Number</label>
+          <div style="position: relative; display: flex; align-items: center; border: 1.5px solid rgba(0,0,0,0.15); border-radius: 8px; overflow: hidden; background: #fff;">
+            <span style="padding: 0.6rem 0.8rem; background: #f8f9fa; color: #495057; font-weight: 700; font-size: 0.95rem; border-right: 1.5px solid rgba(0,0,0,0.1); user-select: none;">+91</span>
+            <input type="tel" id="phone" placeholder="9876543210" pattern="[6-9][0-9]{9}" maxlength="10" required style="border: none; outline: none; width: 100%; padding: 0.65rem 0.85rem; font-family: inherit; font-size: 0.95rem;">
+          </div>
+          <small style="color: var(--text-muted); font-size: 0.78rem; margin-top: 4px; display: block;">SMS verification code will be sent to your mobile number</small>
+        </div>
+        <!-- Firebase reCAPTCHA container -->
+        <div id="recaptcha-container" style="margin: 0.5rem 0;"></div>
+        <div class="form-group" id="otp-group" style="display: none;">
+          <label>SMS Verification Code (OTP)</label>
+          <input type="text" id="otp" placeholder="Enter 6-digit SMS code">
+        </div>
+        <p id="info-msg" style="color: green; font-size: 0.9rem; display: none; margin-bottom: 0.5rem;"></p>
+        <p id="error-msg" style="color: red; font-size: 0.9rem; display: none;"></p>
+        <button type="submit" id="register-btn" class="btn btn-primary"
+          style="width: 100%; margin-top: 1rem;">Register</button>
+      </form>
+      
+      <!-- Google Sign In Container -->
+      <div id="google-auth-container" style="display: none;">
+        <div style="text-align: center; margin-top: 1.5rem; position: relative;">
+          <hr style="border: 0; border-top: 1px solid var(--text-main); margin: 1rem 0;">
+          <span style="position: absolute; top: -0.75rem; left: 50%; transform: translateX(-50%); background: #ffffff; padding: 0 10px; color: var(--text-muted); font-size: 0.9rem;">OR</span>
+        </div>
+        <div id="google-btn-wrapper" style="display: flex; justify-content: center; margin-top: 1rem;">
+          <!-- Button will be rendered here by auth.js -->
+        </div>
+      </div>
+
+      <p style="text-align: center; margin-top: 1.5rem;">
+        Already have an account? <a href="login.html">Login here</a>
+      </p>
+    </div>
+  </div>
+
+  <footer
+    style="text-align: center; margin-top: auto; padding: 2rem; border-top: 2px solid var(--text-main); background: #ffffff; font-size: 0.85rem; display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5rem; width: 100%;">
+    <a href="terms.html" style="color: var(--text-muted); text-decoration: none; font-weight: 500;">Terms &amp;
+      Conditions</a>
+    <a href="privacy.html" style="color: var(--text-muted); text-decoration: none; font-weight: 500;">Privacy Policy</a>
+    <a href="refunds.html" style="color: var(--text-muted); text-decoration: none; font-weight: 500;">Cancellation &amp;
+      Refunds</a>
+    <a href="contact.html" style="color: var(--text-muted); text-decoration: none; font-weight: 500;">Contact Us</a>
+  </footer>
+
+  <script src="js/auth.js?v=11"></script>
+</body>
+
+</html>

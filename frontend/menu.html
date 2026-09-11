@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="icon" href="logo.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Menu - SRI CUMIN SEEDS CATERING SERVICES</title>
+  <script>
+    (function () {
+      function checkAuth() {
+        try {
+          var token = localStorage.getItem('token');
+          var user = JSON.parse(localStorage.getItem('user') || 'null');
+          if (!token || !user) {
+            window.location.replace('login.html');
+          }
+        } catch (_) {
+          window.location.replace('login.html');
+        }
+      }
+      checkAuth();
+      window.addEventListener('pageshow', checkAuth);
+    })();
+  </script>
+  <meta name="description" content="Order fresh canteen food online. Browse today's menu, add to cart, and pay securely with UPI, cards, and all major payment methods.">
+  <link rel="stylesheet" href="css/styles.css?v=21">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="/socket.io/socket.io.js"></script>
+  <!-- Firebase App & Auth SDKs for Phone Authentication -->
+  <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-auth-compat.js"></script>
+  <!-- Google reCAPTCHA for Bot Protection (Invisible mode for Checkout) -->
+  <script>
+    window.onGoogleRecaptchaLoaded = function () {
+      if (typeof window._initCheckoutRecaptchaWidget === 'function') {
+        window._initCheckoutRecaptchaWidget();
+      } else {
+        window._recaptchaApiLoaded = true;
+      }
+    };
+  </script>
+  <script id="google-recaptcha-script" src="https://www.google.com/recaptcha/api.js?onload=onGoogleRecaptchaLoaded&render=explicit" async defer></script>
+</head>
+
+<body>
+  <header>
+    <a href="index.html" class="logo">
+      <img id="canteen-header-logo" src="logo.png" alt="Logo" class="logo-img" onerror="this.src='logo.png'">
+      <span id="canteen-header-name">SRI CUMIN SEEDS CATERING SERVICES</span>
+    </a>
+    <nav style="display:flex;align-items:center;gap:12px;">
+      <a href="canteens.html" style="display:inline-flex;align-items:center;gap:6px;background:rgba(0,0,0,0.06);padding:6px 12px;border-radius:20px;font-size:13px;font-weight:600;color:var(--text-main);text-decoration:none;">
+        <i class="fa-solid fa-store"></i> All Canteens
+      </a>
+      <a href="menu.html" class="active">Menu</a>
+      <a href="orders.html">My Orders</a>
+    </nav>
+  </header>
+
+  <div class="container menu-layout">
+    <main>
+      <div class="menu-header-bar"
+        style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2rem;flex-wrap:wrap;gap:1.5rem;width:100%;">
+        <div>
+          <h2>Today's Menu</h2>
+          <p style="color:var(--text-muted);">Freshly prepared for you.</p>
+        </div>
+        <div class="controls-container"
+          style="display:flex;gap:1rem;flex-grow:1;max-width:850px;justify-content:flex-end;align-items:center;flex-wrap:wrap;">
+          <!-- Search Box -->
+          <div class="search-box" style="position:relative;flex-grow:2;max-width:400px;min-width:260px;">
+            <input type="text" id="menu-search" placeholder="Search for food..."
+              style="width:100%;padding:0.75rem 1rem;padding-left:2.5rem;border:2px solid var(--text-main);border-radius:30px;font-family:inherit;">
+            <i class="fa-solid fa-magnifying-glass"
+              style="position:absolute;left:1rem;top:50%;transform:translateY(-50%);color:var(--text-muted);"></i>
+          </div>
+          <!-- Sort by Price -->
+          <div class="sort-group" style="position:relative;">
+            <select id="menu-sort"
+              style="height:46px;padding:0 2.5rem 0 1.5rem;border:2px solid var(--text-main);border-radius:30px;font-family:inherit;font-weight:600;background:#fff;cursor:pointer;outline:none;appearance:none;-webkit-appearance:none;">
+              <option value="default">Sort by: Default</option>
+              <option value="price-asc">Price: Low to High</option>
+              <option value="price-desc">Price: High to Low</option>
+            </select>
+            <i class="fa-solid fa-chevron-down"
+              style="position:absolute;right:1rem;top:50%;transform:translateY(-50%);pointer-events:none;color:var(--text-muted);"></i>
+          </div>
+        </div>
+      </div>
+      <div id="shop-closed-banner"
+        style="display: none; background: #ffebee; color: #c62828; padding: 1rem; border-radius: 10px; margin-bottom: 1.5rem; text-align: center; border: 1px solid #ffcdd2;">
+        <h3 style="margin: 0;"><i class="fa-solid fa-store-slash"></i> The Canteen is Currently Closed</h3>
+        <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem;">You cannot place orders at this time. Please check back
+          later.</p>
+      </div>
+      <div class="items-grid" id="menu-grid">
+        <!-- Menu items injected by app.js -->
+      </div>
+    </main>
+
+    <aside>
+      <div class="cart-panel glass-panel" id="cart-panel">
+        <div class="drawer-handle"></div>
+        <div class="cart-header-wrapper">
+          <h3 class="cart-header"><i class="fa-solid fa-basket-shopping"></i> <span>Your Cart</span></h3>
+          <button type="button" class="close-cart-btn" id="close-cart-btn" aria-label="Close Cart">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+        <div class="cart-items" id="cart-items">
+          <p style="color:var(--text-muted);text-align:center;margin-top:2rem;">Cart is empty</p>
+        </div>
+        <div class="cart-footer">
+          <div class="cart-total">
+            <span>Total</span>
+            <span id="cart-total">₹0</span>
+          </div>
+          <!-- Invisible Google reCAPTCHA Container -->
+          <div id="checkout-recaptcha"></div>
+          <button class="btn btn-primary btn-add" id="checkout-btn" disabled>Proceed to Pay</button>
+          <p class="recaptcha-legal-text" style="font-size: 0.72rem; color: var(--text-muted); text-align: center; margin-top: 0.5rem; line-height: 1.3;">
+            This site is protected by reCAPTCHA and the Google <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" style="color: var(--text-muted); text-decoration: underline;">Privacy Policy</a> and <a href="https://policies.google.com/terms" target="_blank" rel="noopener noreferrer" style="color: var(--text-muted); text-decoration: underline;">Terms of Service</a> apply.
+          </p>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- Mobile Floating Sticky Cart Summary Bar -->
+  <div id="mobile-cart-bar" class="mobile-cart-bar"
+    onclick="document.getElementById('cart-panel').classList.add('open'); document.getElementById('cart-overlay').classList.add('open');">
+    <div class="mobile-cart-bar-left">
+      <span class="mobile-cart-bar-items" id="mobile-cart-items-text">0 Items</span>
+      <span class="mobile-cart-bar-total" id="mobile-cart-total-text">₹0</span>
+    </div>
+    <div class="mobile-cart-bar-right">
+      <span>View Cart</span>
+      <i class="fa-solid fa-arrow-right"></i>
+    </div>
+  </div>
+
+  <script src="https://static.zohocdn.com/zpay/zpay-js/v1/zpayments.js"></script>
+
+  <div class="cart-overlay" id="cart-overlay"></div>
+
+  <nav class="bottom-nav">
+    <a href="menu.html" class="active">
+      <i class="fa-solid fa-utensils"></i>
+      <span>Menu</span>
+    </a>
+    <a href="#"
+      onclick="document.getElementById('cart-panel').classList.add('open'); document.getElementById('cart-overlay').classList.add('open'); return false;"
+      style="position:relative;">
+      <i class="fa-solid fa-cart-shopping"></i>
+      <span>Cart</span>
+      <span id="floating-cart-count" class="cart-badge"
+        style="position:absolute; top:-5px; right:15px; background:var(--primary-color); color:white; border-radius:50%; padding:2px 6px; font-size:0.7rem; font-weight:bold;">0</span>
+    </a>
+    <a href="orders.html">
+      <i class="fa-solid fa-receipt"></i>
+      <span>Orders</span>
+    </a>
+    <a href="#"
+      onclick="try{localStorage.removeItem('token');localStorage.removeItem('user');Object.keys(localStorage).forEach(k=>{if(k.startsWith('canteen_cart'))localStorage.removeItem(k);});}catch(_){}window.location.replace('login.html');return false;">
+      <i class="fa-solid fa-right-from-bracket"></i>
+      <span>Logout</span>
+    </a>
+  </nav>
+
+  <!-- Phone Verification Modal (Mandatory for unverified / Google OAuth users before order) -->
+  <div id="phone-verify-modal" style="display: none; position: fixed; inset: 0; z-index: 99999; background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(5px); align-items: center; justify-content: center; padding: 1rem;">
+    <div style="background: #ffffff; width: 100%; max-width: 440px; border-radius: 18px; padding: 2rem 1.75rem; box-shadow: 0 20px 40px rgba(0,0,0,0.25); position: relative;">
+      <button type="button" id="close-phone-modal-btn" aria-label="Close" style="position: absolute; top: 1.25rem; right: 1.25rem; background: none; border: none; font-size: 1.4rem; color: #888; cursor: pointer; line-height: 1;">&times;</button>
+      
+      <div style="text-align: center; margin-bottom: 1.5rem;">
+        <div style="width: 58px; height: 58px; background: rgba(227, 38, 38, 0.1); color: var(--primary-color); border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 1.75rem; margin-bottom: 0.75rem;">
+          <i class="fa-solid fa-mobile-screen-button"></i>
+        </div>
+        <h3 style="margin: 0 0 0.4rem; font-size: 1.3rem; font-weight: 700; color: var(--text-main);">Verify Mobile Number</h3>
+        <p style="margin: 0; font-size: 0.88rem; color: var(--text-muted); line-height: 1.45;">
+          To receive real-time order readiness alerts and secure your order, please verify your mobile number.
+        </p>
+      </div>
+
+      <form id="phone-verify-modal-form">
+        <div id="modal-phone-group" style="margin-bottom: 1rem;">
+          <label for="modal-phone-input" style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.4rem; color: var(--text-main);">Indian Mobile Number</label>
+          <div style="display: flex; align-items: center; border: 1.5px solid rgba(0,0,0,0.15); border-radius: 10px; overflow: hidden; background: #fff; transition: border-color 0.2s;">
+            <span style="padding: 0.65rem 0.85rem; background: #f8f9fa; color: #495057; font-weight: 700; font-size: 0.95rem; border-right: 1.5px solid rgba(0,0,0,0.1); user-select: none;">+91</span>
+            <input type="tel" id="modal-phone-input" placeholder="9876543210" pattern="[6-9][0-9]{9}" maxlength="10" required style="border: none; outline: none; width: 100%; padding: 0.7rem 0.85rem; font-family: inherit; font-size: 1rem;">
+          </div>
+          <small style="display: block; font-size: 0.76rem; color: var(--text-muted); margin-top: 0.35rem;">A 6-digit SMS verification code will be sent to this number.</small>
+        </div>
+
+        <div id="modal-recaptcha-container" style="margin: 0.5rem 0;"></div>
+
+        <div id="modal-otp-group" style="display: none; margin-bottom: 1rem;">
+          <label for="modal-otp-input" style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.4rem; color: var(--text-main);">SMS Verification Code (OTP)</label>
+          <input type="text" id="modal-otp-input" placeholder="Enter 6-digit code" maxlength="6" style="width: 100%; padding: 0.7rem 0.85rem; border: 1.5px solid rgba(0,0,0,0.15); border-radius: 10px; font-size: 1.15rem; font-weight: 600; letter-spacing: 4px; text-align: center; outline: none;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.4rem;">
+            <small style="font-size: 0.76rem; color: var(--text-muted);">Didn't receive code?</small>
+            <button type="button" id="modal-resend-otp-btn" style="background: none; border: none; color: var(--primary-color); font-size: 0.78rem; font-weight: 600; cursor: pointer; padding: 0;">Resend SMS</button>
+          </div>
+        </div>
+
+        <p id="modal-info-msg" style="display: none; font-size: 0.85rem; color: #10b981; margin: 0 0 0.85rem; text-align: center; line-height: 1.35;"></p>
+        <p id="modal-error-msg" style="display: none; font-size: 0.85rem; color: #ef4444; margin: 0 0 0.85rem; text-align: center; line-height: 1.35;"></p>
+
+        <button type="submit" id="modal-submit-btn" style="width: 100%; padding: 0.85rem 1rem; background: var(--primary-color); color: #ffffff; border: none; border-radius: 10px; font-weight: 700; font-size: 1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 0.5rem; transition: transform 0.15s, opacity 0.15s;">
+          <span>Send Verification Code</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/app.js?v=20"></script>
+</body>
+
+</html>

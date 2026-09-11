@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <link rel="icon" href="logo.png">
+  <title>SRI CUMIN SEEDS CATERING SERVICES - Campus Canteen | KIT Coimbatore</title>
+  <meta name="description"
+    content="Order fresh campus meals online from SRI CUMIN SEEDS CATERING SERVICES at Kalaignar Karunanidhi Institute of Technology (KIT), Coimbatore. Skip the queue, pay online with all payment modes, and pick up hot food.">
+  <meta name="keywords"
+    content="KIT canteen, kitcbecanteen, Sri Cumin Seeds, Coimbatore canteen, campus food order, online canteen, campus online payment">
+
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="SRI CUMIN SEEDS CATERING SERVICES - Campus Canteen">
+  <meta property="og:description"
+    content="Delicious meals, zero waiting in line. Order online from KIT Coimbatore campus canteen.">
+  <meta property="og:image" content="logo.png">
+  <meta property="og:url" content="https://kitcbecanteen.online/">
+  <meta property="og:type" content="website">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/styles.css?v=20">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+</head>
+
+<body class="landing-body">
+  <!-- Navigation Bar -->
+  <header class="landing-header" id="landing-header">
+    <a href="index.html" class="landing-brand">
+      <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #f97316, #ef4444); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 18px; box-shadow: 0 4px 12px rgba(249,115,22,0.3);">
+        <i class="fa-solid fa-utensils"></i>
+      </div>
+      <div class="landing-brand-text">
+        <h1>SmartCanteen<span style="color:#ea580c;">OS</span></h1>
+        <span>Cloud Campus Dining Platform</span>
+      </div>
+    </a>
+
+    <nav aria-label="Main Navigation">
+      <ul class="landing-nav-links">
+        <li><a href="canteens.html">All Canteens</a></li>
+        <li><a href="#specialties">Specialties</a></li>
+        <li><a href="#how-it-works">How It Works</a></li>
+        <li><a href="#bulk-order">Bulk Catering</a></li>
+        <li><a href="#saas-pricing">Pricing</a></li>
+      </ul>
+    </nav>
+
+    <div class="landing-nav-actions" style="gap: 10px;">
+      <a href="canteen-signup.html" class="btn-landing-login" style="background: rgba(249, 115, 22, 0.12); color: #ea580c; border: 1px solid rgba(249, 115, 22, 0.35); font-weight: 700;">
+        <i class="fa-solid fa-rocket"></i> <span class="btn-nav-text">Register Canteen</span>
+      </a>
+      <a href="super-admin.html" class="btn-landing-login" style="background: rgba(99, 102, 241, 0.12); color: #6366f1; border: 1px solid rgba(99, 102, 241, 0.35); font-weight: 600;">
+        <i class="fa-solid fa-shield-halved"></i> <span class="btn-nav-text">Super Admin</span>
+      </a>
+      <a href="login.html" class="btn-landing-login" id="nav-login-btn">
+        <i class="fa-solid fa-right-to-bracket"></i> <span class="btn-nav-text">Login</span>
+      </a>
+      <a href="canteens.html" class="btn-landing-order" id="nav-order-btn">
+        <i class="fa-solid fa-store"></i> <span class="btn-nav-text">Order Food</span>
+      </a>
+      <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle navigation menu"
+        aria-expanded="false">
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Slide-In Navigation Drawer & Overlay -->
+  <div class="mobile-drawer-overlay" id="mobile-drawer-overlay" aria-hidden="true"></div>
+  <aside class="mobile-nav-drawer" id="mobile-nav-drawer" aria-label="Mobile Navigation Drawer" aria-hidden="true">
+    <div class="mobile-drawer-header">
+      <div class="mobile-drawer-brand">
+        <div style="width: 36px; height: 36px; background: #f97316; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #fff;">
+          <i class="fa-solid fa-utensils"></i>
+        </div>
+        <div class="mobile-drawer-brand-text">
+          <strong>SmartCanteen OS</strong>
+          <span>Cloud Dining Platform</span>
+        </div>
+      </div>
+      <button class="mobile-drawer-close" id="mobile-drawer-close" aria-label="Close navigation menu">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    <div class="mobile-drawer-body">
+      <div class="mobile-drawer-status" id="mobile-drawer-status">
+        <span class="hero-pill-dot" id="mobile-drawer-status-dot"></span>
+        <span id="mobile-drawer-status-text">Platform Online • Canteens Open</span>
+      </div>
+
+      <nav class="mobile-drawer-nav">
+        <ul class="mobile-drawer-links">
+          <li>
+            <a href="canteens.html" class="mobile-drawer-link">
+              <span class="drawer-icon-wrap"><i class="fa-solid fa-store"></i></span>
+              <div class="drawer-link-meta">
+                <strong>Explore Canteens</strong>
+                <small>Browse campus canteens &amp; menus</small>
+              </div>
+              <i class="fa-solid fa-chevron-right drawer-arrow"></i>
+            </a>
+          </li>
+          <li>
+            <a href="canteen-signup.html" class="mobile-drawer-link">
+              <span class="drawer-icon-wrap"><i class="fa-solid fa-rocket"></i></span>
+              <div class="drawer-link-meta">
+                <strong>Register Canteen</strong>
+                <small>14-Day Free Trial for operators</small>
+              </div>
+              <i class="fa-solid fa-chevron-right drawer-arrow"></i>
+            </a>
+          </li>
+          <li>
+            <a href="super-admin.html" class="mobile-drawer-link">
+              <span class="drawer-icon-wrap"><i class="fa-solid fa-shield-halved"></i></span>
+              <div class="drawer-link-meta">
+                <strong>Super Admin Console</strong>
+                <small>Platform-wide management</small>
+              </div>
+              <i class="fa-solid fa-chevron-right drawer-arrow"></i>
+            </a>
+          </li>
+          <li>
+            <a href="#bulk-order" class="mobile-drawer-link">
+              <span class="drawer-icon-wrap"><i class="fa-solid fa-boxes-stacked"></i></span>
+              <div class="drawer-link-meta">
+                <strong>Bulk Catering</strong>
+                <small>Symposiums &amp; Department events</small>
+              </div>
+              <i class="fa-solid fa-chevron-right drawer-arrow"></i>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="mobile-drawer-actions">
+        <a href="canteens.html" class="btn-drawer-order" id="drawer-order-btn">
+          <i class="fa-solid fa-store"></i> Browse Canteens &amp; Order
+        </a>
+        <a href="login.html" class="btn-drawer-login" id="drawer-login-btn">
+          <i class="fa-solid fa-right-to-bracket"></i> Login
+        </a>
+      </div>
+    </div>
+  </aside>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="landing-hero" id="hero">
+      <div class="hero-content">
+        <div class="hero-pill-badge" id="canteen-status-pill">
+          <span class="hero-pill-dot" style="background: #10b981;"></span>
+          <span>⚡ Cloud Multi-Tenant Campus Dining Platform</span>
+        </div>
+
+        <h1 class="hero-title">
+          The Cloud Platform for
+          <span class="highlight-red">Smart Campus Canteens.</span>
+        </h1>
+
+        <p class="hero-description">
+          Empower colleges, universities, and corporate cafeterias with instant table QR ordering, real-time kitchen displays, automated UPI settlements, and comprehensive revenue analytics.
+        </p>
+
+        <div class="hero-cta-group">
+          <a href="canteens.html" class="btn-landing-order hero-btn-order" id="hero-order-cta">
+            <i class="fa-solid fa-store"></i> Browse Partner Canteens
+          </a>
+          <a href="canteen-signup.html" class="btn-landing-login hero-btn-login" style="border: 2px solid #f97316; color: #ea580c; font-weight: 700;">
+            <i class="fa-solid fa-rocket"></i> Register Canteen (Free Trial)
+          </a>
+        </div>
+
+        <div class="hero-stats-row">
+          <div class="hero-stat-item">
+            <h4>5,000+</h4>
+            <p>Campus Community</p>
+          </div>
+          <div class="hero-stat-item">
+            <h4>100%</h4>
+            <p>Fresh &amp; Hygienic</p>
+          </div>
+          <div class="hero-stat-item">
+            <h4>Instant Payment</h4>
+            <p>All Payments Accepted</p>
+          </div>
+          <div class="hero-stat-item">
+            <h4>0 Mins</h4>
+            <p>Standing in Line</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hero Visual Showcase -->
+      <div class="hero-visual">
+        <div class="hero-floating-chip hero-chip-top">
+          <div class="chip-icon fast"><i class="fa-solid fa-bolt"></i></div>
+          <div class="chip-text">
+            <h5>Instant Pickup</h5>
+            <p>Token ready in minutes</p>
+          </div>
+        </div>
+
+        <div class="hero-main-card" id="hero-showcase-card">
+          <!-- Multi-Item Specialty Showcase Track -->
+          <div class="hero-carousel-track" id="hero-carousel-track">
+
+            <!-- Slide 1: Given Biryani Photo -->
+            <div class="hero-slide active" data-slide="0">
+              <div class="hero-card-header">
+                <span class="hero-card-tag"><i class="fa-solid fa-fire"></i> Campus Top Favorite</span>
+                <span style="font-size: 0.8rem; color: var(--text-muted);"><i class="fa-solid fa-clock"></i> Slow Dum
+                  Cooked</span>
+              </div>
+
+              <div class="hero-image-wrap">
+                <img src="biryani.jpg" alt="Special Chicken Dum Biryani" class="hero-food-img"
+                  onerror="this.src='logo.png'">
+                <span class="hero-slide-badge"><i class="fa-solid fa-crown"></i> Signature Dum Special</span>
+              </div>
+
+              <div class="hero-card-meta">
+                <h3>Special Chicken Dum Biryani</h3>
+                <div class="hero-card-info-row">
+                  <span class="hero-card-stock"><i class="fa-solid fa-check-circle"></i> Steaming Hot &amp; Fresh</span>
+                  <span class="hero-card-tag-pill"><i class="fa-solid fa-fire-flame-curved"></i> Campus Favorite</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 2: Real Parotta with Spinning Animation -->
+            <div class="hero-slide" data-slide="1">
+              <div class="hero-card-header">
+                <span class="hero-card-tag" style="background:#fff3e0; color:#e65100;"><i
+                    class="fa-solid fa-rotate"></i> Master Tossed</span>
+                <span style="font-size: 0.8rem; color: var(--text-muted);"><i class="fa-solid fa-clock"></i> Made
+                  Fresh</span>
+              </div>
+
+              <div class="hero-image-wrap parotta-wrap">
+                <div class="spinning-parotta-container">
+                  <img src="real_parotta.jpg" alt="Crispy Malabar Parotta & Salna"
+                    class="hero-food-img spinning-parotta-img" onerror="this.src='logo.png'">
+                </div>
+              </div>
+
+              <div class="hero-card-meta">
+                <h3>Crispy Malabar Parotta &amp; Salna</h3>
+                <div class="hero-card-info-row">
+                  <span class="hero-card-stock"><i class="fa-solid fa-check-circle"></i> Hot &amp; Crispy Layers</span>
+                  <span class="hero-card-tag-pill"><i class="fa-solid fa-bowl-food"></i> Served with Salna</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 3: Tea pouring a hot beverage back and forth between two cups from a height -->
+            <div class="hero-slide" data-slide="2">
+              <div class="hero-card-header">
+                <span class="hero-card-tag" style="background:#e0f2fe; color:#0369a1;"><i
+                    class="fa-solid fa-mug-hot"></i> Freshly Brewed</span>
+                <span style="font-size: 0.8rem; color: var(--text-muted);"><i class="fa-solid fa-bolt"></i> High Pour
+                  Froth</span>
+              </div>
+
+              <div class="hero-image-wrap">
+                <img src="tea_pouring.jpg" alt="South Indian Frothy Meter Tea" class="hero-food-img"
+                  onerror="this.src='logo.png'">
+                <span class="hero-slide-badge tea-badge"><i class="fa-solid fa-mug-saucer"></i> Meter Chai
+                  Experience</span>
+              </div>
+
+              <div class="hero-card-meta">
+                <h3>South Indian Frothy Meter Tea</h3>
+                <div class="hero-card-info-row">
+                  <span class="hero-card-stock"><i class="fa-solid fa-check-circle"></i> Steaming &amp; Frothy</span>
+                  <span class="hero-card-tag-pill"><i class="fa-solid fa-leaf"></i> Authentic Blend</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Carousel Controls -->
+          <div class="hero-carousel-nav">
+            <button class="hero-carousel-btn prev-btn" id="hero-carousel-prev" aria-label="Previous specialty">
+              <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <div class="hero-carousel-dots" id="hero-carousel-dots">
+              <button class="hero-dot active" data-index="0" aria-label="Biryani"></button>
+              <button class="hero-dot" data-index="1" aria-label="Parotta"></button>
+              <button class="hero-dot" data-index="2" aria-label="Meter Tea"></button>
+            </div>
+            <button class="hero-carousel-btn next-btn" id="hero-carousel-next" aria-label="Next specialty">
+              <i class="fa-solid fa-chevron-right"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="hero-floating-chip hero-chip-bottom">
+          <div class="chip-icon payment"><i class="fa-solid fa-credit-card"></i></div>
+          <div class="chip-text">
+            <h5>All Payments Accepted</h5>
+            <p>UPI, Cards &amp; NetBanking</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Key Features Section -->
+    <!-- Live Partner Canteens Network Showcase -->
+    <section class="landing-section" id="partner-canteens" style="background: rgba(249, 115, 22, 0.03); border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0; padding: 60px 20px;">
+      <div class="section-header" style="text-align: center; margin-bottom: 40px;">
+        <span class="section-tag" style="background: rgba(249, 115, 22, 0.1); color: #ea580c; border: 1px solid rgba(249, 115, 22, 0.3);">Multi-Tenant Network</span>
+        <h2>Explore Partner Canteens</h2>
+        <p>Order online with live kitchen status from our verified campus and corporate cafeteria partners.</p>
+      </div>
+
+      <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px;">
+        <!-- Canteen 1 -->
+        <div style="background: #fff; border-radius: 16px; border: 1px solid #e2e8f0; box-shadow: 0 4px 20px rgba(0,0,0,0.06); overflow: hidden; display: flex; flex-direction: column;">
+          <div style="height: 140px; background: url('biryani.jpg') center/cover; position: relative;">
+            <span style="position: absolute; top: 12px; right: 12px; background: #10b981; color: #fff; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 999px;">
+              <i class="fa-solid fa-door-open"></i> OPEN NOW
+            </span>
+          </div>
+          <div style="padding: 20px; flex: 1; display: flex; flex-direction: column;">
+            <img src="logo.png" alt="Sri Cumin Seeds Logo" style="width: 48px; height: 48px; border-radius: 10px; border: 2px solid #fff; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin-top: -40px; margin-bottom: 10px; background: #fff;">
+            <h3 style="font-size: 18px; font-weight: 800; color: #0f172a; margin-bottom: 4px;">Sri Cumin Seeds - KIT Coimbatore</h3>
+            <p style="font-size: 13px; color: #64748b; margin-bottom: 12px;">Campus Canteen &amp; Fresh Bites • Authentic South Indian meals, Dum Biryani &amp; hot snacks.</p>
+            <div style="font-size: 12px; color: #475569; display: flex; flex-direction: column; gap: 4px; margin-bottom: 18px; flex: 1;">
+              <div><i class="fa-solid fa-location-dot" style="color: #ea580c; width: 16px;"></i> KIT Campus, Coimbatore</div>
+              <div><i class="fa-solid fa-receipt" style="color: #6366f1; width: 16px;"></i> 50+ Menu Items • Online Token Pickup</div>
+            </div>
+            <a href="menu.html?canteen=kit-coimbatore" class="btn-landing-order" style="text-align: center; text-decoration: none; padding: 10px; font-size: 14px;">
+              <i class="fa-solid fa-utensils"></i> Order from KIT Canteen
+            </a>
+          </div>
+        </div>
+
+        <!-- Canteen 2 -->
+        <div style="background: #fff; border-radius: 16px; border: 1px solid #e2e8f0; box-shadow: 0 4px 20px rgba(0,0,0,0.06); overflow: hidden; display: flex; flex-direction: column;">
+          <div style="height: 140px; background: url('https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=600&q=80') center/cover; position: relative;">
+            <span style="position: absolute; top: 12px; right: 12px; background: #10b981; color: #fff; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 999px;">
+              <i class="fa-solid fa-door-open"></i> OPEN NOW
+            </span>
+          </div>
+          <div style="padding: 20px; flex: 1; display: flex; flex-direction: column;">
+            <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=120&q=80" alt="TechHub Logo" style="width: 48px; height: 48px; border-radius: 10px; border: 2px solid #fff; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin-top: -40px; margin-bottom: 10px; background: #fff; object-fit: cover;">
+            <h3 style="font-size: 18px; font-weight: 800; color: #0f172a; margin-bottom: 4px;">TechHub Metro Diner</h3>
+            <p style="font-size: 13px; color: #64748b; margin-bottom: 12px;">Artisanal Cafe &amp; Express Meals • Gourmet Cold Brew, Paneer Wraps &amp; Chicken Subs.</p>
+            <div style="font-size: 12px; color: #475569; display: flex; flex-direction: column; gap: 4px; margin-bottom: 18px; flex: 1;">
+              <div><i class="fa-solid fa-location-dot" style="color: #0ea5e9; width: 16px;"></i> TechHub Innovation Park, Coimbatore</div>
+              <div><i class="fa-solid fa-receipt" style="color: #6366f1; width: 16px;"></i> Express Counter • Mobile QR Ordering</div>
+            </div>
+            <a href="menu.html?canteen=techhub-diner" class="btn-landing-order" style="text-align: center; text-decoration: none; padding: 10px; font-size: 14px; background: #0ea5e9;">
+              <i class="fa-solid fa-utensils"></i> Order from TechHub Diner
+            </a>
+          </div>
+        </div>
+
+        <!-- Join Network Card -->
+        <div style="background: linear-gradient(135deg, #1e293b, #0f172a); color: #fff; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); padding: 30px; display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <span style="background: rgba(99, 102, 241, 0.2); color: #a5b4fc; border: 1px solid rgba(99,102,241,0.4); font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 6px; text-transform: uppercase;">For Canteen Operators</span>
+            <h3 style="font-size: 22px; font-weight: 800; margin-top: 14px; margin-bottom: 8px;">Launch Your Campus Canteen</h3>
+            <p style="font-size: 14px; color: #94a3b8; line-height: 1.5; margin-bottom: 20px;">
+              Get a custom URL, QR ordering for tables, real-time kitchen display, and automatic sales analytics in 2 minutes.
+            </p>
+            <ul style="list-style: none; font-size: 13px; color: #cbd5e1; display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px;">
+              <li><i class="fa-solid fa-circle-check" style="color: #10b981; margin-right: 6px;"></i> 14-Day Free Trial</li>
+              <li><i class="fa-solid fa-circle-check" style="color: #10b981; margin-right: 6px;"></i> Direct UPI &amp; Online Payments</li>
+              <li><i class="fa-solid fa-circle-check" style="color: #10b981; margin-right: 6px;"></i> Table &amp; Counter QR Code Generator</li>
+            </ul>
+          </div>
+          <a href="canteen-signup.html" class="btn-landing-login" style="background: #f97316; color: #fff; text-align: center; text-decoration: none; padding: 12px; font-weight: 700; border-radius: 8px;">
+            <i class="fa-solid fa-rocket"></i> Start Free 14-Day Trial
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why Order Section -->
+    <section class="landing-section" id="features">
+      <div class="section-header">
+        <span class="section-tag">Campus Dining Reimagined</span>
+        <h2>Why Order with SmartCanteen Cloud?</h2>
+        <p>Engineered for busy students and faculty across campuses to save time and eat wholesome food.</p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon-box" style="background:#ffebee; color:#e53935;">
+            <i class="fa-solid fa-hourglass-half"></i>
+          </div>
+          <h3>Skip Canteen Queues</h3>
+          <p>Order between lectures, from the library, or hostel. Walk in only when your digital token is ready.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-box" style="background:#e8f5e9; color:#2e7d32;">
+            <i class="fa-solid fa-leaf"></i>
+          </div>
+          <h3>Fresh &amp; Hygienic Meals</h3>
+          <p>Prepared daily under strict hygiene protocols with authentic South Indian flavors and fresh ingredients.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-box" style="background:#e3f2fd; color:#1565c0;">
+            <i class="fa-solid fa-mobile-screen-button"></i>
+          </div>
+          <h3>Instant Digital Token</h3>
+          <p>Get a real-time order token with QR code on your phone for quick, touchless verification at the counter.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-box" style="background:#fff3e0; color:#ef6c00;">
+            <i class="fa-solid fa-credit-card"></i>
+          </div>
+          <h3>All Payments Accepted</h3>
+          <p>Pay smoothly via UPI (GPay, PhonePe, Paytm), Debit &amp; Credit Cards, or NetBanking with instant
+            verification.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-box" style="background:#f3e5f5; color:#7b1fa2;">
+            <i class="fa-solid fa-users"></i>
+          </div>
+          <h3>Event &amp; Bulk Catering</h3>
+          <p>Easy bulk order bookings for college symposiums, department workshops, and cultural club meetings.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-box" style="background:#e0f7fa; color:#00838f;">
+            <i class="fa-solid fa-bell"></i>
+          </div>
+          <h3>Live Order Tracking</h3>
+          <p>Track your order status live as it moves from Kitchen Preparing to Ready for Pickup.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Popular Specialties Preview -->
+    <section class="landing-section specialties-wrapper" id="specialties">
+      <div class="section-header">
+        <span class="section-tag">Campus Favorites</span>
+        <h2>Today's Popular Canteen Specials</h2>
+        <p>Cooked fresh each day by our experienced culinary team.</p>
+      </div>
+
+      <div class="specialties-marquee-container" id="specialties-marquee-container">
+        <div class="specialties-marquee-track" id="specialties-marquee-track">
+          <!-- Set 1: Campus Specials -->
+          <div class="specialties-group">
+            <div class="specialty-card">
+              <div class="specialty-img-wrap">
+                <span class="specialty-badge"><i class="fa-solid fa-star"></i> Student Choice</span>
+                <img src="real_parotta.jpg" alt="Flaky Parotta &amp; Salna" onerror="this.src='logo.png'">
+              </div>
+              <div class="specialty-content">
+                <h3>Flaky Parotta &amp; Salna</h3>
+                <p>Golden, crispy multi-layered South Indian parottas served with rich spicy gravy.</p>
+                <div class="specialty-footer">
+                  <span class="specialty-price">₹40 <small style="font-size:0.75rem; color:#777;">/ 2 pcs</small></span>
+                  <a href="menu.html" class="specialty-order-link">Order <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+              </div>
+            </div>
+
+            <div class="specialty-card">
+              <div class="specialty-img-wrap">
+                <span class="specialty-badge"><i class="fa-solid fa-bowl-food"></i> Special</span>
+                <img src="biryani.jpg" alt="Special Dum Biryani" onerror="this.src='logo.png'">
+              </div>
+              <div class="specialty-content">
+                <h3>Special Dum Biryani</h3>
+                <p>Fragrant jeera samba rice slow cooked with secret spices and tender pieces.</p>
+                <div class="specialty-footer">
+                  <span class="specialty-price">₹100</span>
+                  <a href="menu.html" class="specialty-order-link">Order <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+              </div>
+            </div>
+
+            <div class="specialty-card">
+              <div class="specialty-img-wrap">
+                <span class="specialty-badge"><i class="fa-solid fa-fire"></i> Best Seller</span>
+                <img src="kushka_rice.jpg" alt="Empty Kushka" onerror="this.src='logo.png'">
+              </div>
+              <div class="specialty-content">
+                <h3>Empty Kushka</h3>
+                <p>Flavorful biryani rice served steaming hot with rich salna and onion raita.</p>
+                <div class="specialty-footer">
+                  <span class="specialty-price">₹30</span>
+                  <a href="menu.html" class="specialty-order-link">Order <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+              </div>
+            </div>
+
+            <div class="specialty-card">
+              <div class="specialty-img-wrap">
+                <span class="specialty-badge"><i class="fa-solid fa-mug-hot"></i> Refreshments</span>
+                <img src="tea_pouring.jpg" alt="Tea, Coffee &amp; Snacks" onerror="this.src='logo.png'">
+              </div>
+              <div class="specialty-content">
+                <h3>Tea, Coffee &amp; Snacks</h3>
+                <p>Freshly brewed South Indian filter coffee, aromatic masala tea, crispy vadas, and samosas.</p>
+                <div class="specialty-footer">
+                  <span class="specialty-price">From ₹10</span>
+                  <a href="menu.html" class="specialty-order-link">Order <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Set 2: Seamless Infinite Marquee Loop -->
+          <div class="specialties-group" aria-hidden="true">
+            <div class="specialty-card">
+              <div class="specialty-img-wrap">
+                <span class="specialty-badge"><i class="fa-solid fa-star"></i> Student Choice</span>
+                <img src="real_parotta.jpg" alt="Flaky Parotta &amp; Salna" onerror="this.src='logo.png'">
+              </div>
+              <div class="specialty-content">
+                <h3>Flaky Parotta &amp; Salna</h3>
+                <p>Golden, crispy multi-layered South Indian parottas served with rich spicy gravy.</p>
+                <div class="specialty-footer">
+                  <span class="specialty-price">₹40 <small style="font-size:0.75rem; color:#777;">/ 2 pcs</small></span>
+                  <a href="menu.html" class="specialty-order-link">Order <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+              </div>
+            </div>
+
+            <div class="specialty-card">
+              <div class="specialty-img-wrap">
+                <span class="specialty-badge"><i class="fa-solid fa-bowl-food"></i> Special</span>
+                <img src="biryani.jpg" alt="Special Dum Biryani" onerror="this.src='logo.png'">
+              </div>
+              <div class="specialty-content">
+                <h3>Special Dum Biryani</h3>
+                <p>Fragrant jeera samba rice slow cooked with secret spices and tender pieces.</p>
+                <div class="specialty-footer">
+                  <span class="specialty-price">₹100</span>
+                  <a href="menu.html" class="specialty-order-link">Order <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+              </div>
+            </div>
+
+            <div class="specialty-card">
+              <div class="specialty-img-wrap">
+                <span class="specialty-badge"><i class="fa-solid fa-fire"></i> Best Seller</span>
+                <img src="kushka_rice.jpg" alt="Empty Kushka" onerror="this.src='logo.png'">
+              </div>
+              <div class="specialty-content">
+                <h3>Empty Kushka</h3>
+                <p>Flavorful biryani rice served steaming hot with rich salna and onion raita.</p>
+                <div class="specialty-footer">
+                  <span class="specialty-price">₹30</span>
+                  <a href="menu.html" class="specialty-order-link">Order <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+              </div>
+            </div>
+
+            <div class="specialty-card">
+              <div class="specialty-img-wrap">
+                <span class="specialty-badge"><i class="fa-solid fa-mug-hot"></i> Refreshments</span>
+                <img src="tea_pouring.jpg" alt="Tea, Coffee &amp; Snacks" onerror="this.src='logo.png'">
+              </div>
+              <div class="specialty-content">
+                <h3>Tea, Coffee &amp; Snacks</h3>
+                <p>Freshly brewed South Indian filter coffee, aromatic masala tea, crispy vadas, and samosas.</p>
+                <div class="specialty-footer">
+                  <span class="specialty-price">From ₹10</span>
+                  <a href="menu.html" class="specialty-order-link">Order <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="specialties-cta-wrap">
+        <a href="menu.html" class="btn-landing-order specialties-all-btn">
+          <i class="fa-solid fa-book-open"></i> View Today's Complete Live Menu
+        </a>
+      </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="landing-section" id="how-it-works">
+      <div class="section-header">
+        <span class="section-tag">Simple &amp; Fast</span>
+        <h2>How to Order in 3 Steps</h2>
+        <p>Order ahead from anywhere on campus in under 60 seconds.</p>
+      </div>
+
+      <div class="how-it-works-grid">
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <h3>Select Your Food</h3>
+          <p>Login with your student or faculty account, explore today's available items, and add your picks to cart.
+          </p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <h3>Quick Digital Pay</h3>
+          <p>All payments accepted: pay securely via UPI (Google Pay, PhonePe, Paytm), Cards, or NetBanking.</p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <h3>Pick Up Your Meal</h3>
+          <p>Show your digital order token at the express pickup counter and enjoy your freshly packed food!</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bulk Catering Banner -->
+    <section class="landing-section bulk-section" id="bulk-order">
+      <div class="landing-bulk-banner">
+        <div class="bulk-banner-text">
+          <h3>Hosting a College Event or Symposium?</h3>
+          <p>
+            Order breakfast boxes, executive lunch thalis, or high-tea snack platters in bulk for 10 to 500+ attendees.
+            Custom pricing, on-time delivery across campus departments, and priority preparation.
+          </p>
+        </div>
+        <div class="bulk-banner-action">
+          <a href="bulk-order.html" class="btn-bulk-cta">
+            <i class="fa-solid fa-boxes-stacked"></i> Request Bulk Catering
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Timings & Location Section -->
+    <section class="landing-section" id="timings">
+      <div class="section-header">
+        <span class="section-tag">Campus Information</span>
+        <h2>Canteen Hours &amp; Location</h2>
+        <p>Serving the KIT Coimbatore campus community throughout the day.</p>
+      </div>
+
+      <div class="info-cards-grid">
+        <div class="info-card">
+          <h3><i class="fa-solid fa-clock" style="color:#e53935;"></i> Operating Hours</h3>
+          <div class="timing-row">
+            <span class="timing-slot">Breakfast</span>
+            <span class="timing-time">7:30 AM – 10:30 AM</span>
+          </div>
+          <div class="timing-row">
+            <span class="timing-slot">Lunch</span>
+            <span class="timing-time">12:00 PM – 2:30 PM</span>
+          </div>
+          <div class="timing-row">
+            <span class="timing-slot">Evening Snacks &amp; Tea</span>
+            <span class="timing-time">3:30 PM – 6:30 PM</span>
+          </div>
+          <div class="timing-row">
+            <span class="timing-slot">Working Days</span>
+            <span class="timing-time">Monday – Saturday</span>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <h3><i class="fa-solid fa-location-dot" style="color:#e53935;"></i> Canteen Location</h3>
+          <p style="color:#444; line-height:1.6; margin-bottom:1rem;">
+            <strong>SRI CUMIN SEEDS CATERING SERVICES</strong><br>
+            Central Food Court &amp; Dining Hall<br>
+            Kalaignar Karunanidhi Institute of Technology (KIT)<br>
+            Kannampalayam Post, Coimbatore, Tamil Nadu – 641402
+          </p>
+          <p style="font-size:0.88rem; color:var(--text-muted); margin:0;">
+            <i class="fa-solid fa-phone"></i> Support: Available at the central manager counter
+          </p>
+      </div>
+    </section>
+
+    <!-- SaaS Subscription Pricing Section -->
+    <section class="landing-section" id="saas-pricing" style="background: #f8fafc; padding: 70px 20px; border-top: 1px solid #e2e8f0;">
+      <div class="section-header" style="text-align: center; margin-bottom: 50px;">
+        <span class="section-tag" style="background: rgba(99, 102, 241, 0.1); color: #6366f1; border: 1px solid rgba(99, 102, 241, 0.3);">SaaS Subscription Plans</span>
+        <h2>Simple, Scalable Pricing for Canteens</h2>
+        <p>Whether you manage a single campus cafeteria or a multi-counter food court, SmartCanteen Cloud scales with your volume.</p>
+      </div>
+
+      <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px;">
+        
+        <!-- Plan 1: Free Trial -->
+        <div style="background: #fff; border-radius: 16px; border: 1px solid #e2e8f0; padding: 28px; display: flex; flex-direction: column; box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
+          <h3 style="font-size: 18px; font-weight: 700; color: #0f172a; margin-bottom: 6px;">14-Day Free Trial</h3>
+          <p style="font-size: 13px; color: #64748b; margin-bottom: 16px;">Test the full system with real orders.</p>
+          <div style="font-size: 32px; font-weight: 800; color: #0f172a; margin-bottom: 20px;">
+            ₹0 <span style="font-size: 13px; font-weight: 500; color: #64748b;">/ 14 days</span>
+          </div>
+          <ul style="list-style: none; font-size: 13px; color: #334155; display: flex; flex-direction: column; gap: 10px; margin-bottom: 26px; flex: 1;">
+            <li><i class="fa-solid fa-check" style="color: #10b981; margin-right: 8px;"></i> Up to 20 Menu Items</li>
+            <li><i class="fa-solid fa-check" style="color: #10b981; margin-right: 8px;"></i> 200 Monthly Orders</li>
+            <li><i class="fa-solid fa-check" style="color: #10b981; margin-right: 8px;"></i> Table &amp; Counter QR Code</li>
+            <li><i class="fa-solid fa-check" style="color: #10b981; margin-right: 8px;"></i> Live Kitchen Screen</li>
+          </ul>
+          <a href="canteen-signup.html" style="background: #f1f5f9; color: #0f172a; border: 1px solid #cbd5e1; text-align: center; text-decoration: none; padding: 12px; border-radius: 10px; font-weight: 700; font-size: 14px; transition: all 0.2s;">
+            Start Free Trial
+          </a>
+        </div>
+
+        <!-- Plan 2: Starter -->
+        <div style="background: #fff; border-radius: 16px; border: 1px solid #e2e8f0; padding: 28px; display: flex; flex-direction: column; box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
+          <h3 style="font-size: 18px; font-weight: 700; color: #0f172a; margin-bottom: 6px;">Campus Starter</h3>
+          <p style="font-size: 13px; color: #64748b; margin-bottom: 16px;">Ideal for snack kiosks &amp; juice bars.</p>
+          <div style="font-size: 32px; font-weight: 800; color: #0f172a; margin-bottom: 20px;">
+            ₹1,499 <span style="font-size: 13px; font-weight: 500; color: #64748b;">/ month</span>
+          </div>
+          <ul style="list-style: none; font-size: 13px; color: #334155; display: flex; flex-direction: column; gap: 10px; margin-bottom: 26px; flex: 1;">
+            <li><i class="fa-solid fa-check" style="color: #10b981; margin-right: 8px;"></i> Up to 40 Menu Items</li>
+            <li><i class="fa-solid fa-check" style="color: #10b981; margin-right: 8px;"></i> 1,000 Orders / month</li>
+            <li><i class="fa-solid fa-check" style="color: #10b981; margin-right: 8px;"></i> Direct UPI Settlement</li>
+            <li><i class="fa-solid fa-check" style="color: #10b981; margin-right: 8px;"></i> Daily Sales Reports</li>
+          </ul>
+          <a href="canteen-signup.html" style="background: #f1f5f9; color: #0f172a; border: 1px solid #cbd5e1; text-align: center; text-decoration: none; padding: 12px; border-radius: 10px; font-weight: 700; font-size: 14px; transition: all 0.2s;">
+            Choose Starter
+          </a>
+        </div>
+
+        <!-- Plan 3: Growth (Most Popular) -->
+        <div style="background: #fff; border-radius: 16px; border: 2px solid #f97316; padding: 28px; display: flex; flex-direction: column; position: relative; box-shadow: 0 10px 30px rgba(249,115,22,0.12);">
+          <div style="position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: #f97316; color: #fff; font-size: 11px; font-weight: 800; padding: 3px 12px; border-radius: 999px; text-transform: uppercase; letter-spacing: 0.5px;">
+            Most Popular
+          </div>
+          <h3 style="font-size: 18px; font-weight: 700; color: #0f172a; margin-bottom: 6px;">Pro Canteen</h3>
+          <p style="font-size: 13px; color: #64748b; margin-bottom: 16px;">For standard college &amp; company canteens.</p>
+          <div style="font-size: 32px; font-weight: 800; color: #ea580c; margin-bottom: 20px;">
+            ₹2,999 <span style="font-size: 13px; font-weight: 500; color: #64748b;">/ month</span>
+          </div>
+          <ul style="list-style: none; font-size: 13px; color: #334155; display: flex; flex-direction: column; gap: 10px; margin-bottom: 26px; flex: 1;">
+            <li><i class="fa-solid fa-check" style="color: #10b981; margin-right: 8px;"></i> Up to 100 Menu Items</li>
+            <li><i class="fa-solid fa-check" style="color: #10b981; margin-right: 8px;"></i> 5,000 Orders / month</li>
+            <li><i class="fa-solid fa-check" style="color: #10b981; margin-right: 8px;"></i> Bulk Catering Module</li>
+            <li><i class="fa-solid fa-check" style="color: #10b981; margin-right: 8px;"></i> Full Analytics &amp; CSV Export</li>
+            <li><i class="fa-solid fa-check" style="color: #10b981; margin-right: 8px;"></i> Custom Branding &amp; QR Posters</li>
+          </ul>
+          <a href="canteen-signup.html" style="background: linear-gradient(135deg, #f97316, #ea580c); color: #fff; text-align: center; text-decoration: none; padding: 12px; border-radius: 10px; font-weight: 700; font-size: 14px; box-shadow: 0 4px 14px rgba(249,115,22,0.35);">
+            Start 14-Day Free Trial
+          </a>
+        </div>
+
+        <!-- Plan 4: Enterprise -->
+        <div style="background: #fff; border-radius: 16px; border: 1px solid #e2e8f0; padding: 28px; display: flex; flex-direction: column; box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
+          <h3 style="font-size: 18px; font-weight: 700; color: #0f172a; margin-bottom: 6px;">Campus Enterprise</h3>
+          <p style="font-size: 13px; color: #64748b; margin-bottom: 16px;">Multi-counter university dining halls.</p>
+          <div style="font-size: 32px; font-weight: 800; color: #0f172a; margin-bottom: 20px;">
+            ₹5,999 <span style="font-size: 13px; font-weight: 500; color: #64748b;">/ month</span>
+          </div>
+          <ul style="list-style: none; font-size: 13px; color: #334155; display: flex; flex-direction: column; gap: 10px; margin-bottom: 26px; flex: 1;">
+            <li><i class="fa-solid fa-check" style="color: #10b981; margin-right: 8px;"></i> Unlimited Menu Items</li>
+            <li><i class="fa-solid fa-check" style="color: #10b981; margin-right: 8px;"></i> 25,000+ Orders / month</li>
+            <li><i class="fa-solid fa-check" style="color: #10b981; margin-right: 8px;"></i> Multi-Counter Dispatch System</li>
+            <li><i class="fa-solid fa-check" style="color: #10b981; margin-right: 8px;"></i> Custom Payment Gateway Keys</li>
+            <li><i class="fa-solid fa-check" style="color: #10b981; margin-right: 8px;"></i> 24/7 Dedicated Account Manager</li>
+          </ul>
+          <a href="canteen-signup.html" style="background: #f1f5f9; color: #0f172a; border: 1px solid #cbd5e1; text-align: center; text-decoration: none; padding: 12px; border-radius: 10px; font-weight: 700; font-size: 14px; transition: all 0.2s;">
+            Contact Enterprise
+          </a>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="landing-footer">
+    <div class="landing-footer-container">
+      <div class="footer-brand">
+        <h4>SRI CUMIN SEEDS CATERING SERVICES</h4>
+        <p>
+          Official campus catering partner at Kalaignar Karunanidhi Institute of Technology (KIT), Coimbatore.
+          Delivering fresh, wholesome, and delicious meals every day.
+        </p>
+        <p style="font-size:0.82rem; color:#888;">
+          Website: <a href="https://kitcbecanteen.online/" style="color:#ff6f60;">kitcbecanteen.online</a>
+        </p>
+      </div>
+
+      <div class="footer-links">
+        <h5>Quick Links</h5>
+        <ul>
+          <li><a href="menu.html">Today's Menu</a></li>
+          <li><a href="login.html">Login to Account</a></li>
+          <li><a href="register.html">Create New Account</a></li>
+          <li><a href="bulk-order.html">Bulk Event Catering</a></li>
+          <li><a href="orders.html">My Past Orders</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-links">
+        <h5>Legal &amp; Policy</h5>
+        <ul>
+          <li><a href="terms.html">Terms &amp; Conditions</a></li>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="refunds.html">Cancellation &amp; Refunds</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="landing-footer-bottom">
+      <p>&copy; 2026 SRI CUMIN SEEDS CATERING SERVICES. All Rights Reserved. Campus Canteen at KIT Coimbatore.</p>
+    </div>
+  </footer>
+
+  <!-- Sticky Bottom Quick-Order Bar for Mobile -->
+  <div class="mobile-bottom-bar" id="mobile-bottom-bar">
+    <div class="mobile-bottom-bar-inner">
+      <div class="mobile-bottom-status">
+        <span class="hero-pill-dot" id="bottom-status-dot"></span>
+        <div class="mobile-bottom-status-text">
+          <span class="mobile-status-title" id="bottom-status-title">Campus Canteen</span>
+          <span class="mobile-status-sub" id="bottom-status-sub">Express Counter Pickup</span>
+        </div>
+      </div>
+      <a href="login.html" class="mobile-bottom-cta" id="mobile-bottom-cta">
+        <i class="fa-solid fa-utensils"></i> Order Now
+      </a>
+    </div>
+  </div>
+
+  <!-- Smart User Session, Status & Mobile Drawer Script -->
+  <script>
+    (function () {
+      // 1. Check logged-in user state
+      const token = localStorage.getItem('token');
+      const user = JSON.parse(localStorage.getItem('user') || 'null');
+
+      const navLoginBtn = document.getElementById('nav-login-btn');
+      const navOrderBtn = document.getElementById('nav-order-btn');
+      const heroLoginCta = document.getElementById('hero-login-cta');
+      const heroOrderCta = document.getElementById('hero-order-cta');
+      const drawerLoginBtn = document.getElementById('drawer-login-btn');
+      const drawerOrderBtn = document.getElementById('drawer-order-btn');
+      const mobileBottomCta = document.getElementById('mobile-bottom-cta');
+
+      if (token && user) {
+        const destination = user.role === 'admin' ? 'admin.html' : 'menu.html';
+        const destLabel = user.role === 'admin' ? 'Admin Board' : 'My Menu';
+        const firstName = user.name ? user.name.split(' ')[0] : 'Account';
+
+        if (navLoginBtn) {
+          navLoginBtn.innerHTML = '<i class="fa-solid fa-user-check"></i> <span class="btn-nav-text">' + firstName + '</span>';
+          navLoginBtn.href = destination;
+          navLoginBtn.title = 'Logged in as ' + (user.name || 'User');
+        }
+
+        if (navOrderBtn) {
+          navOrderBtn.innerHTML = '<i class="fa-solid fa-utensils"></i> <span class="btn-nav-text">' + destLabel + '</span>';
+          navOrderBtn.href = destination;
+        }
+
+        if (heroLoginCta) {
+          heroLoginCta.innerHTML = '<i class="fa-solid fa-receipt"></i> My Orders';
+          heroLoginCta.href = 'orders.html';
+        }
+
+        if (heroOrderCta) {
+          heroOrderCta.href = destination;
+        }
+
+        if (drawerLoginBtn) {
+          drawerLoginBtn.innerHTML = '<i class="fa-solid fa-user-check"></i> Account: ' + firstName;
+          drawerLoginBtn.href = destination;
+        }
+
+        if (drawerOrderBtn) {
+          drawerOrderBtn.innerHTML = '<i class="fa-solid fa-utensils"></i> Open ' + destLabel;
+          drawerOrderBtn.href = destination;
+        }
+
+        if (mobileBottomCta) {
+          mobileBottomCta.href = destination;
+        }
+      } else {
+        if (navOrderBtn) navOrderBtn.href = 'login.html';
+        if (heroOrderCta) heroOrderCta.href = 'login.html';
+        if (drawerOrderBtn) drawerOrderBtn.href = 'login.html';
+        if (mobileBottomCta) mobileBottomCta.href = 'login.html';
+      }
+
+      // 2. Fetch live canteen shop status
+      const statusPill = document.getElementById('canteen-status-pill');
+      const statusDot = document.getElementById('status-dot');
+      const statusText = document.getElementById('status-text');
+
+      const drawerStatusPill = document.getElementById('mobile-drawer-status');
+      const drawerStatusDot = document.getElementById('mobile-drawer-status-dot');
+      const drawerStatusText = document.getElementById('mobile-drawer-status-text');
+
+      const bottomStatusDot = document.getElementById('bottom-status-dot');
+      const bottomStatusTitle = document.getElementById('bottom-status-title');
+      const bottomStatusSub = document.getElementById('bottom-status-sub');
+
+      fetch('/api/shop-status')
+        .then(res => res.json())
+        .then(data => {
+          const isOpen = data && data.isOpen === true;
+          if (isOpen) {
+            if (statusDot) statusDot.classList.remove('closed');
+            if (statusText) statusText.textContent = '🟢 Canteen Open for Orders Now';
+            if (statusPill) {
+              statusPill.style.background = '#e8f8f0';
+              statusPill.style.color = '#27ae60';
+              statusPill.style.borderColor = 'rgba(39, 174, 96, 0.2)';
+            }
+            if (drawerStatusDot) drawerStatusDot.classList.remove('closed');
+            if (drawerStatusText) drawerStatusText.textContent = '🟢 Canteen Open Now';
+            if (bottomStatusDot) bottomStatusDot.classList.remove('closed');
+            if (bottomStatusTitle) bottomStatusTitle.textContent = 'Canteen Open Now';
+            if (bottomStatusSub) bottomStatusSub.textContent = 'All Payments Accepted • Skip Queues';
+          } else {
+            if (statusDot) statusDot.classList.add('closed');
+            if (statusText) statusText.textContent = '🔴 Currently Closed (Check Timings)';
+            if (statusPill) {
+              statusPill.style.background = '#ffebee';
+              statusPill.style.color = '#c62828';
+              statusPill.style.borderColor = 'rgba(198, 40, 40, 0.2)';
+            }
+            if (drawerStatusDot) drawerStatusDot.classList.add('closed');
+            if (drawerStatusText) drawerStatusText.textContent = '🔴 Currently Closed';
+            if (bottomStatusDot) bottomStatusDot.classList.add('closed');
+            if (bottomStatusTitle) bottomStatusTitle.textContent = 'Canteen Closed';
+            if (bottomStatusSub) bottomStatusSub.textContent = 'View menu for next shift';
+          }
+        })
+        .catch(() => {
+          if (statusText) statusText.textContent = '⚡ Campus Canteen • Open Daily';
+          if (drawerStatusText) drawerStatusText.textContent = '⚡ Campus Canteen • Open Daily';
+        });
+
+      // 3. Mobile Navigation Drawer Controls
+      const mobileToggle = document.getElementById('mobile-menu-toggle');
+      const mobileDrawer = document.getElementById('mobile-nav-drawer');
+      const drawerOverlay = document.getElementById('mobile-drawer-overlay');
+      const drawerClose = document.getElementById('mobile-drawer-close');
+      const drawerLinks = document.querySelectorAll('.mobile-drawer-link');
+
+      function openDrawer() {
+        if (!mobileDrawer || !drawerOverlay) return;
+        mobileDrawer.classList.add('active');
+        drawerOverlay.classList.add('active');
+        if (mobileToggle) {
+          mobileToggle.classList.add('active');
+          mobileToggle.setAttribute('aria-expanded', 'true');
+        }
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeDrawer() {
+        if (!mobileDrawer || !drawerOverlay) return;
+        mobileDrawer.classList.remove('active');
+        drawerOverlay.classList.remove('active');
+        if (mobileToggle) {
+          mobileToggle.classList.remove('active');
+          mobileToggle.setAttribute('aria-expanded', 'false');
+        }
+        document.body.style.overflow = '';
+      }
+
+      if (mobileToggle) mobileToggle.addEventListener('click', function (e) {
+        e.stopPropagation();
+        if (mobileDrawer && mobileDrawer.classList.contains('active')) {
+          closeDrawer();
+        } else {
+          openDrawer();
+        }
+      });
+
+      if (drawerClose) drawerClose.addEventListener('click', closeDrawer);
+      if (drawerOverlay) drawerOverlay.addEventListener('click', closeDrawer);
+
+      drawerLinks.forEach(link => {
+        link.addEventListener('click', function () {
+          closeDrawer();
+        });
+      });
+
+      // Esc key closes drawer
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && mobileDrawer && mobileDrawer.classList.contains('active')) {
+          closeDrawer();
+        }
+      });
+
+      // 4. Show/Hide Mobile Bottom Quick-Order Bar based on scroll position
+      const mobileBottomBar = document.getElementById('mobile-bottom-bar');
+      if (mobileBottomBar) {
+        let lastScrollY = window.scrollY;
+        window.addEventListener('scroll', function () {
+          const currentScrollY = window.scrollY;
+          // Show once scrolled past 180px
+          if (currentScrollY > 180) {
+            mobileBottomBar.classList.add('visible');
+          } else {
+            mobileBottomBar.classList.remove('visible');
+          }
+          lastScrollY = currentScrollY;
+        }, { passive: true });
+      }
+      // 5. Hero Specialty Carousel Controller
+      (function initHeroCarousel() {
+        const slides = document.querySelectorAll('.hero-slide');
+        const dots = document.querySelectorAll('.hero-dot');
+        const prevBtn = document.getElementById('hero-carousel-prev');
+        const nextBtn = document.getElementById('hero-carousel-next');
+        const card = document.getElementById('hero-showcase-card');
+        if (!slides.length) return;
+
+        let currentIndex = 0;
+        let timer = null;
+
+        function showSlide(index) {
+          if (index < 0) index = slides.length - 1;
+          if (index >= slides.length) index = 0;
+          currentIndex = index;
+
+          slides.forEach((slide, idx) => {
+            slide.classList.toggle('active', idx === currentIndex);
+          });
+          dots.forEach((dot, idx) => {
+            dot.classList.toggle('active', idx === currentIndex);
+          });
+        }
+
+        function nextSlide() {
+          showSlide(currentIndex + 1);
+        }
+
+        function prevSlide() {
+          showSlide(currentIndex - 1);
+        }
+
+        function startTimer() {
+          stopTimer();
+          timer = setInterval(nextSlide, 4500);
+        }
+
+        function stopTimer() {
+          if (timer) {
+            clearInterval(timer);
+            timer = null;
+          }
+        }
+
+        if (nextBtn) nextBtn.addEventListener('click', function (e) {
+          e.preventDefault();
+          nextSlide();
+          startTimer();
+        });
+
+        if (prevBtn) prevBtn.addEventListener('click', function (e) {
+          e.preventDefault();
+          prevSlide();
+          startTimer();
+        });
+
+        dots.forEach((dot, idx) => {
+          dot.addEventListener('click', function (e) {
+            e.preventDefault();
+            showSlide(idx);
+            startTimer();
+          });
+        });
+
+        if (card) {
+          card.addEventListener('mouseenter', stopTimer);
+          card.addEventListener('mouseleave', startTimer);
+          card.addEventListener('touchstart', stopTimer, { passive: true });
+          card.addEventListener('touchend', startTimer, { passive: true });
+        }
+
+        startTimer();
+      })();
+
+      // 6. Specialties Marquee Cursor & Touch Stop
+      (function initSpecialtiesMarquee() {
+        const marqueeContainer = document.getElementById('specialties-marquee-container');
+        const marqueeTrack = document.getElementById('specialties-marquee-track');
+        if (!marqueeContainer || !marqueeTrack) return;
+
+        function pauseMarquee() {
+          marqueeTrack.style.animationPlayState = 'paused';
+        }
+        function resumeMarquee() {
+          marqueeTrack.style.animationPlayState = 'running';
+        }
+
+        marqueeContainer.addEventListener('mouseenter', pauseMarquee);
+        marqueeContainer.addEventListener('mouseleave', resumeMarquee);
+        marqueeContainer.addEventListener('touchstart', pauseMarquee, { passive: true });
+        marqueeContainer.addEventListener('touchend', resumeMarquee, { passive: true });
+      })();
+    })();
+  </script>
+</body>
+
+</html>

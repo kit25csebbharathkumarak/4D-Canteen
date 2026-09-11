@@ -1,0 +1,35 @@
+{
+  "name": "smart-canteen-saas",
+  "version": "2.0.0",
+  "description": "SmartCanteen Cloud (CanteenOS) - Multi-tenant SaaS platform for college, campus, and corporate canteens",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "dev": "nodemon backend/server.js"
+  },
+  "dependencies": {
+    "@emailjs/nodejs": "^5.0.2",
+    "axios": "^1.7.9",
+    "bcrypt": "^5.1.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "express-rate-limit": "^7.5.0",
+    "google-auth-library": "^9.15.0",
+    "helmet": "^8.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "pg": "^8.13.1",
+    "qrcode": "^1.5.4",
+    "socket.io": "^4.8.1"
+  },
+  "keywords": [
+    "canteen",
+    "saas",
+    "multi-tenant",
+    "food-ordering",
+    "campus",
+    "pos"
+  ],
+  "author": "",
+  "license": "ISC"
+}

@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register Your Canteen | SmartCanteen SaaS Platform</title>
+  <link rel="icon" href="logo.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #f97316;
+      --primary-dark: #ea580c;
+      --primary-light: #fb923c;
+      --bg: #0b0f19;
+      --card-bg: rgba(17, 24, 39, 0.85);
+      --border: rgba(255, 255, 255, 0.08);
+      --text: #f3f4f6;
+      --text-muted: #9ca3af;
+      --accent-green: #10b981;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Outfit', sans-serif;
+    }
+
+    body {
+      background: radial-gradient(circle at 15% 15%, rgba(249, 115, 22, 0.12) 0%, transparent 40%),
+                  radial-gradient(circle at 85% 85%, rgba(99, 102, 241, 0.12) 0%, transparent 40%),
+                  var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Header */
+    .signup-nav {
+      padding: 20px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(12px);
+    }
+
+    .brand-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: #fff;
+    }
+
+    .brand-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--primary), #ef4444);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      box-shadow: 0 4px 14px rgba(249, 115, 22, 0.35);
+    }
+
+    .brand-title {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+
+    .brand-title span {
+      color: var(--primary);
+    }
+
+    .nav-login-link {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-login-link:hover {
+      color: #fff;
+    }
+
+    .nav-login-link strong {
+      color: var(--primary-light);
+    }
+
+    /* Main Container */
+    .signup-container {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 0 24px;
+      display: grid;
+      grid-template-columns: 1fr 1.25fr;
+      gap: 40px;
+      align-items: center;
+      flex: 1;
+    }
+
+    @media (max-width: 860px) {
+      .signup-container {
+        grid-template-columns: 1fr;
+        margin: 20px auto;
+      }
+    }
+
+    /* Left Info */
+    .info-col h2 {
+      font-size: 38px;
+      font-weight: 800;
+      line-height: 1.2;
+      letter-spacing: -1px;
+      margin-bottom: 18px;
+    }
+
+    .info-col h2 span {
+      background: linear-gradient(90deg, var(--primary-light), #f43f5e);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .info-col p {
+      color: var(--text-muted);
+      font-size: 16px;
+      line-height: 1.6;
+      margin-bottom: 30px;
+    }
+
+    .benefit-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .benefit-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .benefit-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: rgba(249, 115, 22, 0.15);
+      border: 1px solid rgba(249, 115, 22, 0.3);
+      color: var(--primary-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .benefit-text strong {
+      display: block;
+      color: #fff;
+      font-size: 15px;
+      margin-bottom: 2px;
+    }
+
+    .benefit-text span {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    /* Right Card Form */
+    .signup-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 34px 32px;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .card-title {
+      font-size: 22px;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    .card-subtitle {
+      color: var(--text-muted);
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: #cbd5e1;
+      margin-bottom: 6px;
+    }
+
+    .form-control {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 14px;
+      color: #fff;
+      font-size: 14px;
+      outline: none;
+      transition: all 0.2s;
+    }
+
+    .form-control:focus {
+      border-color: var(--primary);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .slug-preview {
+      font-size: 12px;
+      color: var(--primary-light);
+      margin-top: 4px;
+      display: block;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .btn-submit {
+      width: 100%;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: #fff;
+      border: none;
+      padding: 14px;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 4px 18px rgba(249, 115, 22, 0.35);
+      transition: all 0.2s;
+      margin-top: 20px;
+    }
+
+    .btn-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(249, 115, 22, 0.5);
+    }
+
+    .form-alert {
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 13px;
+      margin-bottom: 16px;
+      display: none;
+    }
+
+    .form-alert.error {
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: #fca5a5;
+      display: block;
+    }
+
+    .form-alert.success {
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: #6ee7b7;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="signup-nav">
+    <a href="index.html" class="brand-link">
+      <div class="brand-icon"><i class="fa-solid fa-utensils"></i></div>
+      <div class="brand-title">SmartCanteen<span>OS</span></div>
+    </a>
+    <a href="login.html" class="nav-login-link">
+      Already registered? <strong>Log In</strong>
+    </a>
+  </header>
+
+  <main class="signup-container">
+    <!-- Left Value Proposition -->
+    <div class="info-col">
+      <h2>Transform Your Campus Food Service into a <span>Smart Canteen</span></h2>
+      <p>Launch an automated contactless canteen with online pre-ordering, instant table QR codes, live kitchen display, and automatic revenue analytics.</p>
+
+      <ul class="benefit-list">
+        <li class="benefit-item">
+          <div class="benefit-icon"><i class="fa-solid fa-clock"></i></div>
+          <div class="benefit-text">
+            <strong>Zero Hardware Required</strong>
+            <span>Setup in 2 minutes. Works on any tablet, laptop, or smartphone.</span>
+          </div>
+        </li>
+        <li class="benefit-item">
+          <div class="benefit-icon"><i class="fa-solid fa-qrcode"></i></div>
+          <div class="benefit-text">
+            <strong>Custom Table QR Codes</strong>
+            <span>Print instant QR codes for student tables and queue-less counters.</span>
+          </div>
+        </li>
+        <li class="benefit-item">
+          <div class="benefit-icon"><i class="fa-solid fa-wallet"></i></div>
+          <div class="benefit-text">
+            <strong>Direct UPI &amp; Online Payments</strong>
+            <span>Payments route directly to your canteen's account with automated reconciliation.</span>
+          </div>
+        </li>
+        <li class="benefit-item">
+          <div class="benefit-icon"><i class="fa-solid fa-chart-pie"></i></div>
+          <div class="benefit-text">
+            <strong>Daily &amp; Monthly Revenue Stats</strong>
+            <span>Track your bestsellers, busy hours, and profit margins automatically.</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Right Signup Card -->
+    <div class="signup-card">
+      <h3 class="card-title">Launch Your Canteen</h3>
+      <p class="card-subtitle">Get started with a 14-day free trial. No credit card required.</p>
+
+      <div class="form-alert" id="signup-alert"></div>
+
+      <form id="form-tenant-register">
+        <div class="form-group">
+          <label>Canteen / Cafeteria Name *</label>
+          <input type="text" id="reg-canteen-name" class="form-control" placeholder="e.g. Royal Campus Cafe" required>
+        </div>
+
+        <div class="form-group">
+          <label>Canteen Web URL Slug *</label>
+          <input type="text" id="reg-slug" class="form-control" placeholder="e.g. royal-campus-cafe" required>
+          <span class="slug-preview" id="slug-preview">Your link: https://smartcanteen.io/menu.html?canteen=royal-campus-cafe</span>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Admin Email *</label>
+            <input type="email" id="reg-email" class="form-control" placeholder="admin@canteen.com" required>
+          </div>
+          <div class="form-group">
+            <label>Mobile Number (10 digits) *</label>
+            <input type="tel" id="reg-phone" class="form-control" placeholder="9876543210" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Password (min 6 characters) *</label>
+          <input type="password" id="reg-password" class="form-control" placeholder="Create a secure password" required minlength="6">
+        </div>
+
+        <div class="form-group">
+          <label>Campus / Institution Address</label>
+          <input type="text" id="reg-address" class="form-control" placeholder="e.g. Main Food Court, Engineering College">
+        </div>
+
+        <div class="form-group">
+          <label>Subscription Tier</label>
+          <select id="reg-plan" class="form-control">
+            <option value="free_trial">14-Day Free Trial (All Features Included)</option>
+            <option value="starter">Campus Starter (₹1,499/mo)</option>
+            <option value="growth" selected>Pro Canteen (₹2,999/mo - Most Popular)</option>
+            <option value="enterprise">Campus Enterprise (₹5,999/mo)</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn-submit" id="btn-submit-signup">
+          <i class="fa-solid fa-rocket"></i> Launch My Canteen Now
+        </button>
+      </form>
+    </div>
+  </main>
+
+  <script src="js/canteen-signup.js"></script>
+</body>
+</html>
